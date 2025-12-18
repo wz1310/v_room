@@ -404,7 +404,7 @@ body {
 
   .room-thumb {
     height: 350px; /* Lebih tinggi di mobile sesuai gambar */
-    background-image: url("path-to-mic-image.jpg");
+    /* background-image: url("path-to-mic-image.jpg"); */
     background-size: cover;
   }
 }

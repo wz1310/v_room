@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "nama": "admin",
+    "password": "12345",
+    "handle": "@admin"
+  },
+  {
+    "id": 2,
+    "username": "admin1",
+    "nama": "admin1",
+    "password": "12345",
+    "handle": "@admin1"
+  },
+  {
+    "id": 3,
+    "username": "admin2",
+    "nama": "admin2",
+    "password": "12345",
+    "handle": "@admin2"
+  }
+]
