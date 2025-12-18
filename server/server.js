@@ -104,6 +104,11 @@ io.on("connection", (socket) => {
       activeRooms[roomId].hostSocketId = socket.id;
     }
 
+    // 🔴 KIRIM JUMLAH USER TERBARU
+    io.to(roomId).emit("room_user_count", {
+      count: activeRooms[roomId].users.size,
+    });
+
     socket.to(roomId).emit("user_joined_voice", {
       user: { ...user, socketId: socket.id },
       isHost,
@@ -122,6 +127,11 @@ io.on("connection", (socket) => {
         console.log(
           `🚪 User keluar | Room ${roomId} | Sisa: ${room.users.size}`
         );
+
+        // 🔴 UPDATE JUMLAH USER
+        io.to(roomId).emit("room_user_count", {
+          count: room.users.size,
+        });
 
         // Jika host keluar & tidak ada user tersisa
         if (room.users.size === 0 && room.hostSocketId === socket.id) {

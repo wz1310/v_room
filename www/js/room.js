@@ -27,6 +27,13 @@ socket.on("connect_error", (err) => {
 });
 let localStream;
 
+socket.on("room_user_count", ({ count }) => {
+  const onlineEl = document.getElementById("onlineCount");
+  if (onlineEl) {
+    onlineEl.innerText = `${count} Online`;
+  }
+});
+
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const roomId = urlParams.get("id");
