@@ -92,6 +92,13 @@
             <button class="icon-btn">
               <span class="material-symbols-outlined">person</span>
             </button>
+            <button class="icon-btn" id="addBtn">
+              <img
+                src="img/add.png"
+                alt="Add"
+                style="width: 24px; height: 24px; object-fit: contain"
+              />
+            </button>
           </div>
         </header>
 
@@ -124,6 +131,35 @@
           </div>
         </section>
       </main>
+    </div>
+    <div id="addRoomModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Buat Room Baru</h2>
+          <span class="close-modal">&times;</span>
+        </div>
+        <form id="addRoomForm">
+          <div class="form-group">
+            <label>Judul Room</label>
+            <input
+              type="text"
+              id="roomTitle"
+              placeholder="Contoh: Ngobrol Santai ☕"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select id="roomCategory">
+              <option value="Musik">🎵 Musik</option>
+              <option value="Gaming">🎮 Gaming</option>
+              <option value="Edukasi">📚 Edukasi</option>
+              <option value="Horor">👻 Horor</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-btn">Publikasikan</button>
+        </form>
+      </div>
     </div>
     <script src="cordova.js"></script>
     <script src="js/dashboard.js"></script>

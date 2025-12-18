@@ -5,7 +5,100 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.querySelector(".logout");
   const userData = JSON.parse(localStorage.getItem("user"));
   const user = localStorage.getItem("user");
-  
+  const roomGrid = document.querySelector(".room-grid");
+  const SERVER_URL = "http://localhost:3000/api/rooms";
+  const addBtn = document.getElementById("addBtn");
+  const modal = document.getElementById("addRoomModal");
+  const closeModal = document.querySelector(".close-modal");
+  const addRoomForm = document.getElementById("addRoomForm");
+
+  // Buka Modal
+  if (addBtn) {
+    addBtn.addEventListener("click", () => {
+      modal.style.display = "block";
+    });
+  }
+
+  // Tutup Modal via tombol X
+  if (closeModal) {
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+  }
+
+  // Tutup Modal jika klik di luar kotak modal
+  window.addEventListener("click", (event) => {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  // Handle Form Submit
+  // Handle Form Submit
+  if (addRoomForm) {
+    addRoomForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // 1. Ambil data dari input
+      const roomData = {
+        title: document.getElementById("roomTitle").value,
+        category: document.getElementById("roomCategory").value,
+        host: userData ? userData.nama : "Anonim", // Mengambil nama dari localStorage
+      };
+
+      // 2. Kirim ke Server
+      fetch("http://localhost:3000/api/rooms", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(roomData),
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error("Gagal menyimpan ke server");
+          return response.json();
+        })
+        .then((result) => {
+          if (result.success) {
+            modal.style.display = "none"; // Tutup modal
+            addRoomForm.reset(); // Reset input form
+            loadRooms(); // Panggil fungsi refresh list room
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Terjadi kesalahan saat menyimpan data.");
+        });
+    });
+  }
+
+  function loadRooms() {
+    fetch("http://localhost:3000/api/rooms")
+      .then((res) => res.json())
+      .then((rooms) => {
+        const roomGrid = document.querySelector(".room-grid");
+        roomGrid.innerHTML = ""; // Kosongkan list lama
+
+        rooms.forEach((room) => {
+          roomGrid.innerHTML += `
+            <div class="room-card">
+              <div class="room-thumb"></div>
+              <div class="room-details">
+                <h3>${room.title}</h3>
+                <div class="room-info">
+                  <span>${room.host}</span>
+                  <span class="listeners">🎧 ${room.listeners || 0}</span>
+                </div>
+              </div>
+            </div>`;
+        });
+      })
+      .catch((err) => console.error("Gagal load rooms:", err));
+  }
+
+  // Panggil saat pertama kali buka dashboard
+  loadRooms();
+
   if (!user) {
     // Jika tidak ada data user, tendang balik ke login
     window.location.href = "index.html";
