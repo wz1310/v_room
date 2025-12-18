@@ -1,0 +1,351 @@
+/* Variabel Warna & Font */
+:root {
+    --primary: #1337ec;
+    --bg-light: #f6f6f8;
+    --text-main-light: #111422;
+    --text-sub-light: #647093;
+    --border-light: #dce0e5;
+    --input-bg-light: #ffffff;
+
+    /* Dark Mode Defaults */
+    --bg-dark: #101322;
+    --text-main-dark: #ffffff;
+    --text-sub-dark: #929bc9;
+    --border-dark: #323b67;
+    --input-bg-dark: #191e33;
+    
+    --font-display: 'Spline Sans', 'Noto Sans', sans-serif;
+    --transition: all 0.3s ease;
+}
+
+/* Reset Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-display);
+    background-color: var(--bg-light);
+    color: var(--text-main-light);
+    min-height: 100vh;
+}
+
+/* Dark Mode Logic */
+html.dark body {
+    background-color: var(--bg-dark);
+    color: var(--text-main-dark);
+}
+
+/* Container Utama */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border-light);
+    background: transparent;
+}
+
+html.dark .main-header {
+    border-bottom-color: var(--border-dark);
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--primary);
+}
+
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Tombol-tombol */
+button {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    transition: var(--transition);
+}
+
+.btn-ghost {
+    background: transparent;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    color: inherit;
+}
+
+.btn-ghost:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+html.dark .btn-ghost:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.btn-secondary {
+    background: var(--border-light);
+    padding: 8px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+html.dark .btn-secondary {
+    background: var(--border-dark);
+    color: white;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(19, 55, 236, 0.2);
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+/* Layout Grid Main */
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.login-grid {
+    display: flex;
+    flex-direction: column; /* Mobile first */
+    gap: 40px;
+    width: 100%;
+    max-width: 960px;
+}
+
+/* Visual Side */
+.visual-side {
+    width: 100%;
+}
+
+.visual-card {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background-size: cover;
+    background-position: center;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(16, 19, 34, 0.9), transparent);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px;
+}
+
+.visual-overlay h3 {
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.visual-overlay p {
+    color: var(--text-sub-dark);
+}
+
+/* Form Side */
+.form-side {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-header h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.form-header h2 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-sub-light);
+    margin-bottom: 32px;
+}
+
+html.dark .form-header h2 {
+    color: var(--text-sub-dark);
+}
+
+/* Form Elements */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    height: 56px;
+    padding: 0 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    background: var(--input-bg-light);
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+html.dark .form-control {
+    background: var(--input-bg-dark);
+    border-color: var(--border-dark);
+    color: white;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(19, 55, 236, 0.1);
+}
+
+/* Password wrapper */
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    color: var(--text-sub-light);
+}
+
+/* Utils */
+.forgot-link {
+    text-align: right;
+}
+
+.forgot-link a, .register-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-sub-light);
+    font-size: 0.875rem;
+    margin: 10px 0;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.divider span {
+    padding: 0 15px;
+}
+
+html.dark .divider::before, html.dark .divider::after {
+    border-bottom-color: var(--border-dark);
+}
+
+/* Social Login */
+.social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 48px;
+    border: 1px solid var(--border-light);
+    background: white;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+html.dark .btn-social {
+    background: var(--border-dark);
+    border-color: var(--border-dark);
+    color: white;
+}
+
+.social-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--text-sub-light);
+}
+
+/* RESPONSIVE DESKTOP (Tablet & Up) */
+@media (min-width: 864px) {
+    .main-header {
+        padding: 15px 40px;
+    }
+
+    .login-grid {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .visual-side, .form-side {
+        flex: 1;
+    }
+
+    .visual-card {
+        aspect-ratio: square;
+    }
+}

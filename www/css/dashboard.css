@@ -1,0 +1,410 @@
+/* RESET & GLOBAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Spline Sans", sans-serif;
+  background: #0d1117;
+  color: #ffffff;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* LAYOUT STRUCTURE */
+.app {
+  display: flex; /* Kunci agar sidebar dan main menyamping */
+  width: 100%;
+  height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 280px;
+  background: #0d1117;
+  border-right: 1px solid #1f2937;
+  flex-shrink: 0;
+}
+
+.sidebar-inner {
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  background: #d19a82;
+  border-radius: 50%;
+  position: relative;
+}
+
+.avatar::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  background: #22c55e;
+  border: 2px solid #0d1117;
+  border-radius: 50%;
+}
+
+.brand h1 {
+  font-size: 18px;
+  font-weight: 700;
+}
+.brand p {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 25px;
+  color: #94a3b8;
+  text-decoration: none;
+  margin-bottom: 8px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.menu a.active {
+  background: #1e40af; /* Biru sesuai gambar */
+  color: #fff;
+}
+
+.badge {
+  background: #ef4444;
+  font-size: 11px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-left: auto;
+}
+
+/* PREMIUM BOX */
+.premium-box {
+  background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  border: 1px solid #1e293b;
+}
+
+.premium-tag {
+  color: #3b82f6;
+  font-weight: 800;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.premium-box p {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin-bottom: 15px;
+}
+
+.upgrade-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #334155;
+  color: white;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logout {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: 1px solid #1f2937;
+  background: transparent;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+/* MAIN AREA */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.topbar {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-box {
+  flex: 0 1 450px;
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  border-radius: 25px;
+  border: none;
+  background: #161b30; /* Biru gelap pekat sesuai gambar */
+  color: #fff;
+}
+
+.search-box span {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8b949e;
+}
+
+.top-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #161b30;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+}
+
+.dot-notif {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  background: #ef4444;
+  border-radius: 50%;
+}
+
+/* CATEGORIES */
+.content {
+  padding: 0 24px 40px 24px;
+}
+
+.categories {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0 30px 0;
+  overflow-x: auto;
+}
+
+.categories button {
+  padding: 10px 22px;
+  border-radius: 20px;
+  border: none;
+  background: #1c2135;
+  color: #717fb4;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.categories button.active {
+  background: #ffffff; /* Sesuai gambar */
+  color: #000;
+}
+
+/* ROOM GRID */
+.section-header h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.room-card {
+  background: #161b22;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #1f2937;
+}
+
+.room-thumb {
+  height: 160px;
+  background: #21262d;
+}
+
+.room-details {
+  padding: 15px;
+}
+.room-details h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.room-info {
+  display: flex;
+  justify-content: space-between;
+  color: #8b949e;
+  font-size: 13px;
+}
+.burger-btn {
+  display: none; /* Sembunyikan di desktop */
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  display: none; /* Sembunyikan default */
+}
+
+.overlay.active {
+  display: block;
+}
+/* TAMPILAN MOBILE */
+@media (max-width: 768px) {
+  .burger-btn {
+    display: block; /* Munculkan di mobile */
+  }
+  .sidebar {
+    display: block; /* Hapus display: none */
+    position: fixed;
+    left: -280px; /* Sembunyikan ke kiri luar layar */
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    transition: 0.3s ease-in-out;
+  }
+
+  .sidebar.active {
+    left: 0; /* Geser ke dalam saat aktif */
+  }
+
+  .app {
+    flex-direction: column;
+  }
+
+  .topbar {
+    padding: 15px;
+  }
+
+  .search-box {
+    flex: 1; /* Biarkan search box memenuhi ruang */
+  }
+
+  /* Trending Section Styles */
+  .trending-section {
+    padding: 0 24px 24px 24px;
+  }
+
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .view-all {
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .trending-card {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)),
+      url("path-to-your-bg.jpg");
+    background-size: cover;
+    border-radius: 20px;
+    padding: 20px;
+    height: 180px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid #30363d;
+  }
+
+  .live-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #ef4444;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  /* Floating Action Button */
+  .fab-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+  }
+
+  /* Sesuaikan Grid Card agar memenuhi layar mobile */
+  .room-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .room-thumb {
+    height: 350px; /* Lebih tinggi di mobile sesuai gambar */
+    background-image: url("path-to-mic-image.jpg");
+    background-size: cover;
+  }
+}

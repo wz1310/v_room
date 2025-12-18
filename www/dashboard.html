@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VoiceRoom - Explore</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+
+  <body>
+    <div id="sidebarOverlay" class="overlay"></div>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="sidebar-inner">
+          <div>
+            <div class="brand">
+              <div class="avatar"></div>
+              <div>
+                <h1>VoiceRoom</h1>
+                <p>@alex_designer</p>
+              </div>
+            </div>
+
+            <nav class="menu">
+              <a class="active"
+                ><span class="material-symbols-outlined">home</span> Jelajahi</a
+              >
+              <a
+                ><span class="material-symbols-outlined">group</span>
+                Mengikuti</a
+              >
+              <a
+                ><span class="material-symbols-outlined">chat_bubble</span>
+                Pesan <span class="badge">3</span></a
+              >
+              <a
+                ><span class="material-symbols-outlined"
+                  >account_balance_wallet</span
+                >
+                Dompet</a
+              >
+            </nav>
+          </div>
+
+          <div class="sidebar-footer">
+            <div class="premium-box">
+              <div class="premium-tag">
+                <span class="material-symbols-outlined" style="font-size: 16px"
+                  >diamond</span
+                >
+                PREMIUM
+              </div>
+              <p>Unlock high quality audio rooms & exclusive badges.</p>
+              <button class="upgrade-btn">Upgrade</button>
+            </div>
+
+            <button class="logout">
+              <span class="material-symbols-outlined">logout</span> Log Out
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <button id="burgerBtn" class="burger-btn">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+
+          <div class="search-box">
+            <span class="material-symbols-outlined">search</span>
+            <input placeholder="Cari room, host, atau topik..." />
+          </div>
+
+          <div class="top-actions">
+            <button class="icon-btn">
+              <span class="material-symbols-outlined">notifications</span>
+              <span class="dot-notif"></span>
+            </button>
+            <button class="icon-btn">
+              <span class="material-symbols-outlined">person</span>
+            </button>
+          </div>
+        </header>
+
+        <section class="content">
+          <div class="categories">
+            <button class="active">Semua</button>
+            <button>🔥 Populer</button>
+            <button>🎵 Musik</button>
+            <button>💬 Ngobrol Santai</button>
+            <button>👻 Horor</button>
+            <button>🎮 Gaming</button>
+            <button>📚 Edukasi</button>
+          </div>
+
+          <div class="section-header">
+            <h2>Rekomendasi Untukmu</h2>
+          </div>
+
+          <div class="room-grid">
+            <div class="room-card">
+              <div class="room-thumb"></div>
+              <div class="room-details">
+                <h3>Karaoke Malam Minggu 🎤</h3>
+                <div class="room-info">
+                  <span>DJ Andira</span>
+                  <span class="listeners">🎧 1.2k</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="cordova.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

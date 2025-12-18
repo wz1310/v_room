@@ -1,50 +1,137 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>VoiceRoom - Login Pengguna</title>
 
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, please refer to the docs:
-            https://cordova.apache.org/docs/en/latest/
-        Some notes:
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <meta name="color-scheme" content="light dark">
-        <link rel="stylesheet" href="css/index.css">
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="main-header">
+        <div class="logo-section">
+          <div class="logo-icon">
+            <svg
+              fill="currentColor"
+              viewBox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <h2 class="logo-text">VoiceRoom</h2>
         </div>
-        <script src="cordova.js"></script>
-        <script src="js/index.js"></script>
-    </body>
+        <div class="header-actions">
+          <button class="btn-ghost">Bantuan</button>
+          <button class="btn-secondary">Daftar</button>
+        </div>
+      </header>
+
+      <main class="content-wrapper">
+        <div class="login-grid">
+          <div class="visual-side">
+            <div
+              class="visual-card"
+              style="background-image: url('img/logo.png')"
+            >
+              <div class="visual-overlay">
+                <h3>Terhubung Melalui Suara</h3>
+                <p>
+                  Bergabung dengan ribuan room aktif dan temukan komunitasmu
+                  sekarang.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-side">
+            <div class="form-header">
+              <h1>Selamat Datang</h1>
+              <h2>Masuk untuk melanjutkan ke VoiceRoom</h2>
+            </div>
+
+            <form class="login-form" id="loginForm">
+              <div class="input-group">
+                <label>Email atau Nama Pengguna</label>
+                <input
+                  type="text"
+                  placeholder="Contoh: user@email.com"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Kata Sandi</label>
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    placeholder="Masukkan kata sandi"
+                    class="form-control"
+                  />
+                  <button type="button" class="toggle-password">
+                    <span class="material-symbols-outlined">visibility</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="forgot-link">
+                <a href="#">Lupa Kata Sandi?</a>
+              </div>
+
+              <button type="submit" class="btn-primary">Masuk</button>
+
+              <div class="divider">
+                <span>Atau masuk dengan</span>
+              </div>
+
+              <div class="social-grid">
+                <button type="button" class="btn-social">
+                  <svg class="social-icon" viewBox="0 0 24 24">
+                    <path
+                      d="M23.766 12.2764C23.766 11.4607 23.6999 10.6406 23.5588 9.83807H12.24V14.4591H18.7217C18.4528 15.9494 17.5885 17.2678 16.323 18.1056V21.1039H20.19C22.4608 19.0139 23.766 15.9274 23.766 12.2764Z"
+                      fill="#4285F4"
+                    ></path>
+                    <path
+                      d="M12.2401 24.0008C15.4766 24.0008 18.2059 22.9382 20.1945 21.1039L16.3275 18.1055C15.2517 18.8375 13.8627 19.252 12.2445 19.252C9.11388 19.252 6.45946 17.1399 5.50705 14.3003H1.5166V17.3912C3.55371 21.4434 7.7029 24.0008 12.2401 24.0008Z"
+                      fill="#34A853"
+                    ></path>
+                    <path
+                      d="M5.50253 14.3003C5.00236 12.8099 5.00236 11.1961 5.50253 9.70575V6.61481H1.51649C-0.18551 10.0056 -0.18551 14.0004 1.51649 17.3912L5.50253 14.3003Z"
+                      fill="#FBBC05"
+                    ></path>
+                    <path
+                      d="M12.2401 4.74966C13.9509 4.7232 15.6044 5.36697 16.8434 6.54867L20.2695 3.12262C18.1001 1.0855 15.2208 -0.034466 12.2401 0.000808666C7.7029 0.000808666 3.55371 2.55822 1.5166 6.61481L5.50264 9.70575C6.45064 6.86173 9.10947 4.74966 12.2401 4.74966Z"
+                      fill="#EA4335"
+                    ></path>
+                  </svg>
+                  <span>Google</span>
+                </button>
+                <button type="button" class="btn-social">
+                  <svg class="social-icon" viewBox="0 0 24 24">
+                    <path
+                      d="M22 12C22 6.48 17.52 2 12 2C6.48 2 2 6.48 2 12C2 16.84 5.44 20.87 10 21.8V15H8V12H10V9.5C10 7.57 11.71 6 13.75 6H16V9H14.5C13.39 9 13 9.7 13 10.5V12H16L15.5 15H13V21.8C17.56 20.87 22 16.84 22 12Z"
+                      fill="#1877F2"
+                    ></path>
+                  </svg>
+                  <span>Facebook</span>
+                </button>
+              </div>
+
+              <div class="register-link">
+                Belum punya akun? <a href="#">Daftar sekarang</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="cordova.js"></script>
+    <script src="js/index.js"></script>
+  </body>
 </html>
