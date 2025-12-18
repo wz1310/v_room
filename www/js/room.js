@@ -59,6 +59,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (currentRoom) {
         titleElement.innerText = currentRoom.title;
         document.title = `VoiceRoom - ${currentRoom.title}`;
+        const hostNameEl = document.getElementById("hostName");
+        if (hostNameEl) {
+          hostNameEl.innerText = currentRoom.host;
+        }
 
         // 3. JALANKAN VOICE setelah data room siap
         startVoice(roomId);
