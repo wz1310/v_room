@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Ruang Suara - Voice Room</title>
+    <link rel="stylesheet" href="css/room.css" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">graphic_eq</span>
+        </div>
+        <div class="brand-info">
+          <h1 id="roomDisplayTitle">Memuat...</h1>
+          <h5 style="display: none" id="roomDisplayId">#00</h5>
+        </div>
+      </div>
+      <div class="flex items-center" style="flex: 1; justify-content: flex-end">
+        <div class="header-actions">
+          <button class="btn-leave">
+            <span>Leave</span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <div class="layout-container">
+      <main class="stage-area custom-scrollbar">
+        <div class="room-header">
+          <div class="online-count">
+            <span class="material-symbols-outlined" style="font-size: 18px"
+              >group</span
+            >
+            <span>342 Online</span>
+          </div>
+        </div>
+        <div class="stage-content">
+          <div class="host-container">
+            <div class="host-avatar-wrapper">
+              <div class="host-glow"></div>
+              <div class="avatar-host">
+                <div
+                  class="avatar-img"
+                  data-alt="DJ Rara portrait with headphones"
+                  style="
+                    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD-34e7MFj2kOoORypJrmZPyjpagj7hjg2eyTMgkyqvy2_wDImKIQ8No7gvegDo8_6O8dRULELwvxyIB4JCOdMgoiyeUAe9mJIHMiyivQwRrDimBVj1Ov9Fuflk-gQ1eVqnn5pqGjVrjFSiUUEoWxTED4lTeqpeKprPOgfgPA5LFSAZTILdGmvljcHjnSoJWjss8k_W9_YvTEZZ36EG9ZjXXgmnvRskeK67_jQuzlrla176PQpqanC8nOKJpwoqxL1Xkdk90gseTF1D');
+                  "
+                ></div>
+              </div>
+              <div class="mic-badge">
+                <span class="material-symbols-outlined" style="font-size: 16px"
+                  >mic</span
+                >
+              </div>
+            </div>
+            <div class="host-info">
+              <h3 class="host-name">DJ Rara 👑</h3>
+              <p class="host-status">Speaking now...</p>
+            </div>
+          </div>
+          <div class="speakers-grid">
+            <div class="speaker-item">
+              <div class="avatar-speaker-wrapper">
+                <div class="avatar-speaker">
+                  <div
+                    class="avatar-img"
+                    data-alt="Male speaker with glasses"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCMghMNO8pkqo1tiFUMKekPR1YIwV9Zb1KNb98QtwFLb6rZZi2zpD6duglJlqvF7XDsCdHl8OvrC1GoHktcvHblEKkA4pw7NblC12X-q-GtrhaB2k85pTn7ZrDvQO_WAvrEsm7hpHFSEQwh8ZszWQvwVxUidVXJQuYqPZBY62A1SzdIRhYhSw0rzRyMRLcxmZ-2w7YIoM7lNrXLrFZjUwR7nN5MyOUkoZfGOAFIeP5ZbTWcidxQpNPGIa6rhv2nejGMquVJIl6E5gaq');
+                    "
+                  ></div>
+                </div>
+                <div class="mic-badge muted">
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 14px"
+                    >mic_off</span
+                  >
+                </div>
+              </div>
+              <span class="speaker-name">Alex Beats</span>
+            </div>
+            <div class="speaker-item">
+              <div class="avatar-speaker-wrapper">
+                <div class="avatar-speaker">
+                  <div
+                    class="avatar-img"
+                    data-alt="Female speaker smiling"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBuWI4MH4B4IcWkTtm1lLjX3OKkbXa7P2FTH8Y9SZp4nzlytkOiyNMbQcDbae05NMblIg7fsLfRXshDcoXcZio4qW-g2MAzE1oXlhlSxhyEBkbTFRKF-4-hkeWaVQwd4PD5Frn1tjm8WajERcS8Il2AgfaMIt92HjI7uUDLTrksk7jyPCgvLRbID2UNvA_GvdaCeD6tMZHkHypL_TRqgd0F5KhYSrGPk8clOC6m7Fdaejgl0-RtA-kjpW8PazLJloio1dQt9G3uVXtI');
+                    "
+                  ></div>
+                </div>
+                <div class="mic-badge muted">
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 14px"
+                    >mic_off</span
+                  >
+                </div>
+              </div>
+              <span class="speaker-name">Sarah J</span>
+            </div>
+            <div class="speaker-item">
+              <div class="avatar-speaker-wrapper">
+                <div class="avatar-speaker">
+                  <div
+                    class="avatar-img"
+                    data-alt="Male speaker with cap"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDkiMq-HIfPT4wQA4R0Gtk9voHYZoCorffp_StbMRnCbySbEr4_AvDeuojC4kb6YkRrcImZDJyD3bi25wVbvN1K9XW4h_jt6E_z-MOS7Qn1vdxuIN_xijxvurbbtqmuxVBqNrwVxmKAW1AV-nOtqJPuid79DWFSKYlGHAZr-L84jT1qldvYgKewpvGa8w8H5Lg0Y4a63KqckAcoEAx3hy2w5-oafctMSOQT4lClReRDoTWIAdv35PqsWq2Kr2BP6jTX2pSBIs3qgmvQ');
+                    "
+                  ></div>
+                </div>
+                <div class="mic-badge muted">
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 14px"
+                    >mic_off</span
+                  >
+                </div>
+              </div>
+              <span class="speaker-name">Mike Flow</span>
+            </div>
+          </div>
+        </div>
+      </main>
+      <aside class="chat-sidebar" id="chatPanel">
+        <div class="chat-header">
+          <h3 class="chat-title">Live Chat</h3>
+          <button
+            class="close-chat-btn"
+            onclick="document.getElementById('chatPanel').classList.remove('open')"
+          >
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="chat-messages custom-scrollbar">
+          <div class="system-msg">
+            <span class="system-badge"> Welcome to the room! 👋 </span>
+          </div>
+          <div class="msg-row">
+            <div
+              class="chat-avatar"
+              data-alt="User avatar 1"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCWrPSnIdoF0EXaCBki3AxqYs64cAA5dq52M-WwMzjcTKbWzTGdMvA0WhU8y19tSKwLvCpn_T27-Sn4-ZYgjhQ3il6NM7PBAI8xr66sgYVijHo2k3ibac3ylvoytWKFwzlsQH5Q1x15XUGYvqb9QI6k3TvejB_QJm_rKLvuRwjphu4lZKvzMpyjwj1XUnm1OLD9eTbMR7re_G8mhvmA0M0AWL7sbOMWVqXu0VesqTerwY0yjkOmbKB4jrCQrciw952rZmSqj5tXQWvP');
+              "
+            ></div>
+            <div class="msg-content">
+              <div class="msg-meta">
+                <span class="msg-name">Anna K.</span>
+                <span class="msg-time">10:42 AM</span>
+              </div>
+              <div class="msg-bubble">
+                Love this track! Can we request songs later?
+              </div>
+            </div>
+          </div>
+          <div class="msg-row self">
+            <div
+              class="chat-avatar"
+              data-alt="Your avatar"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTd-AvYrQ5qlqjUApm7HIYBCO5DPe2amHu-WpREfKaeieomxdnI9l7hmPyaDwFt1YDWxC9KvJvVsaVQB7mPWIw5d6VhNoiN91rWCUKhk5v356JJAJg9aNL1ZWKmdFIYiDib85P4cf6cVy7C56iaxIvpovL-WawJP79f1_WKKTJWnAEmNeYIIjTKEX80ng4CPa-FeeHIrbK0d_D-r5dODzc8JRhREYafJlYS_H5jspQbLxcznjC0GxpRLNo_x9rC2wn8fvKuRhD9IaQ');
+              "
+            ></div>
+            <div class="msg-content">
+              <div class="msg-meta" style="justify-content: flex-end">
+                <span class="msg-time">10:44 AM</span>
+                <span class="msg-name">You</span>
+              </div>
+              <div class="msg-bubble">Sure! Just drop it here.</div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div
+              class="chat-avatar"
+              data-alt="User avatar 2"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJ6VIlkP4LRe0892ATxMT1n34uq-DQ1XNydChUCeTM_3HlFGPof735lcflcamxeabaQ9F-IBFUDMvcZT_zwmY7THP_CfBbgRX9z8cktL0kDmaGDYlnlmdF9g1H0E9KO8umr6nqL9hVaDZeicnWfbzd8CbAhby7xUGJjZJWIMiirr-5TIu4gP0CFuH4AX4-T9qegJ7XrkhxKTnfer62WfgA3LQ1ItV0GtcPYX3ugTqeEynLUrvIbWiNHtvBv0_G7Pw0ch3IWKoKTjWV');
+              "
+            ></div>
+            <div class="msg-content">
+              <div class="msg-meta">
+                <span class="msg-name">Marcus</span>
+                <span class="msg-time">10:45 AM</span>
+              </div>
+              <div class="msg-bubble">
+                The sound quality is amazing today 🔥
+              </div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div
+              class="chat-avatar"
+              data-alt="User avatar 3"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDcZGh-cwwqddfamqmPjbpszHA7ZUIpwpvIndiOG1D3Oa8JnNnUcvDsUT_WeBonMHBLXuj4Nvkunu0GEXf1RVcZwEfGk6h3BULxOzIdjbbfOi11sCJhj8jOCWSaJzkhdDDfr6eqB2dOgbYE8jibYUC5G3l47_ygkCoQd7Hqe_pVqGZPMiI5LBj4vqYDIqlS2pLgMmJB1DNsdgsrpf2TtDZSDBQULuTH7wfLSaGNxYupyOkW9lR2acB7ILW3JgePxX_1T8Gw3B-9uGT8');
+              "
+            ></div>
+            <div class="msg-content">
+              <div class="msg-meta">
+                <span class="msg-name">Elena</span>
+                <span class="msg-time">10:46 AM</span>
+              </div>
+              <div class="msg-bubble">
+                Can someone explain the last point again?
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-footer">
+          <div class="input-wrapper">
+            <input
+              class="chat-input"
+              placeholder="Send a message..."
+              type="text"
+            />
+            <button class="btn-send">
+              <span class="material-symbols-outlined">send</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+      <button
+        class="fab-chat"
+        onclick="document.getElementById('chatPanel').classList.add('open')"
+      >
+        <span class="material-symbols-outlined">chat_bubble</span>
+      </button>
+    </div>
+    <script src="js/room.js"></script>
+  </body>
+</html>

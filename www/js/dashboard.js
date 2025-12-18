@@ -63,6 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
             modal.style.display = "none"; // Tutup modal
             addRoomForm.reset(); // Reset input form
             loadRooms(); // Panggil fungsi refresh list room
+            const newRoomId = result.room.id;
+            window.location.href = `room.html?id=${newRoomId}`;
           }
         })
         .catch((error) => {
