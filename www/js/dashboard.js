@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const userData = JSON.parse(localStorage.getItem("user"));
   const user = localStorage.getItem("user");
   const roomGrid = document.querySelector(".room-grid");
-  const SERVER_URL = "http://localhost:3000/api/rooms";
+  const SERVER_URL = "https://c1jx4415-3000.asse.devtunnels.ms/api/rooms";
   const addBtn = document.getElementById("addBtn");
   const modal = document.getElementById("addRoomModal");
   const closeModal = document.querySelector(".close-modal");
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       // 2. Kirim ke Server
-      fetch("http://localhost:3000/api/rooms", {
+      fetch("https://c1jx4415-3000.asse.devtunnels.ms/api/rooms", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loadRooms() {
-    fetch("http://localhost:3000/api/rooms")
+    fetch("https://c1jx4415-3000.asse.devtunnels.ms/api/rooms")
       .then((res) => res.json())
       .then((rooms) => {
         const roomGrid = document.querySelector(".room-grid");
@@ -83,16 +83,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         rooms.forEach((room) => {
           roomGrid.innerHTML += `
-            <div class="room-card">
-              <div class="room-thumb"></div>
-              <div class="room-details">
-                <h3>${room.title}</h3>
-                <div class="room-info">
-                  <span>${room.host}</span>
-                  <span class="listeners">🎧 ${room.listeners || 0}</span>
-                </div>
-              </div>
-            </div>`;
+    <div class="room-card" data-room-id="${room.id}">
+      <div class="room-thumb"></div>
+      <div class="room-details">
+        <h3>${room.title}</h3>
+        <div class="room-info">
+          <span>${room.host}</span>
+          <span class="listeners">🎧 ${room.listeners || 0}</span>
+        </div>
+      </div>
+    </div>`;
+        });
+        document.querySelectorAll(".room-card").forEach((card) => {
+          card.addEventListener("click", () => {
+            const roomId = card.getAttribute("data-room-id");
+            window.location.href = `room.html?id=${roomId}`;
+          });
         });
       })
       .catch((err) => console.error("Gagal load rooms:", err));

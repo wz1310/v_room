@@ -27,7 +27,7 @@ function onDeviceReady() {
     const username = loginForm.querySelector('input[type="text"]').value;
     const password = passwordInput.value;
 
-    const SERVER_URL = "http://localhost:3000/api/login";
+    const SERVER_URL = "https://c1jx4415-3000.asse.devtunnels.ms/api/login";
 
     fetch(SERVER_URL, {
       method: "POST",
@@ -38,7 +38,19 @@ function onDeviceReady() {
       .then((data) => {
         if (data.success) {
           localStorage.setItem("user", JSON.stringify(data.user));
-          window.location.href = "dashboard.html";
+          // Minta izin mic sebelum pindah halaman
+          navigator.mediaDevices
+            .getUserMedia({ audio: true })
+            .then((stream) => {
+              console.log("Akses mic diberikan");
+              // Hentikan stream sementara karena kita hanya butuh izinnya dulu
+              stream.getTracks().forEach((track) => track.stop());
+              window.location.href = "dashboard.html";
+            })
+            .catch((err) => {
+              alert("Aplikasi butuh akses microphone untuk fitur voice room!");
+              window.location.href = "dashboard.html"; // Tetap pindah atau blokir sesuai keinginan
+            });
         } else {
           alert(data.message);
         }

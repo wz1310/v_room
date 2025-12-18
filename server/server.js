@@ -1,8 +1,15 @@
 const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const twilio = require("twilio");
 const cors = require("cors");
 const fs = require("fs"); // Tambahkan ini
 const path = require("path"); // Tambahkan ini
 const app = express();
+const server = http.createServer(app);
+
+// Credentials Twilio dari contohmu
+const twilioClient = twilio(TWILIO_SID, TWILIO_AUTH);
 
 app.use(cors());
 app.use(express.json());
@@ -49,6 +56,103 @@ app.post("/api/login", (req, res) => {
   });
 });
 
+// --- TWILIO TURN TOKEN ---
+app.get("/turn-token", async (req, res) => {
+  try {
+    const token = await twilioClient.tokens.create();
+    console.log("✅ Token Twilio berhasil dibuat untuk user"); // Tambahkan ini
+    res.json(token);
+  } catch (err) {
+    console.error("❌ Error Twilio:", err.message); // Tambahkan ini
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Perbaikan inisialisasi Socket.io
+const io = new Server(server, {
+  path: "/socket.io/",
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+  allowEIO3: true,
+  transports: ["polling", "websocket"], // Izinkan polling sebagai 'pintu masuk'
+});
+const slots = {};
+const activeRooms = {};
+
+io.on("connection", (socket) => {
+  socket.on("join_voice", ({ roomId, user, isHost }) => {
+    socket.join(roomId);
+
+    // Inisialisasi room jika belum ada
+    if (!activeRooms[roomId]) {
+      activeRooms[roomId] = {
+        hostSocketId: null,
+        users: new Set(),
+      };
+    }
+
+    // Simpan user
+    activeRooms[roomId].users.add(socket.id);
+
+    // Jika host, simpan socket host
+    if (isHost) {
+      activeRooms[roomId].hostSocketId = socket.id;
+    }
+
+    socket.to(roomId).emit("user_joined_voice", {
+      user: { ...user, socketId: socket.id },
+      isHost,
+    });
+
+    console.log(`👥 Room ${roomId} | Users: ${activeRooms[roomId].users.size}`);
+  });
+
+  socket.on("disconnect", () => {
+    for (const roomId in activeRooms) {
+      const room = activeRooms[roomId];
+
+      if (room.users.has(socket.id)) {
+        room.users.delete(socket.id);
+
+        console.log(
+          `🚪 User keluar | Room ${roomId} | Sisa: ${room.users.size}`
+        );
+
+        // Jika host keluar & tidak ada user tersisa
+        if (room.users.size === 0 && room.hostSocketId === socket.id) {
+          console.log(`🔥 Room ${roomId} kosong, hapus dari room.json`);
+          deleteRoomFromFile(roomId);
+          delete activeRooms[roomId];
+        }
+      }
+    }
+  });
+
+  socket.on("webrtc-offer", (data) =>
+    io.to(data.toSocketId).emit("webrtc-offer", {
+      ...data,
+      fromSocketId: socket.id,
+    })
+  );
+
+  socket.on("webrtc-answer", (data) =>
+    io.to(data.toSocketId).emit("webrtc-answer", {
+      ...data,
+      fromSocketId: socket.id,
+    })
+  );
+
+  socket.on("webrtc-ice", (data) =>
+    io.to(data.toSocketId).emit("webrtc-ice", {
+      ...data,
+      fromSocketId: socket.id,
+    })
+  );
+});
+
 // 1. Endpoint GET untuk mengambil daftar room
 app.get("/api/rooms", (req, res) => {
   const roomFilePath = path.join(__dirname, "data", "room.json");
@@ -92,4 +196,26 @@ app.post("/api/rooms", (req, res) => {
   });
 });
 
-app.listen(3000, () => console.log("Server berjalan di port 3000"));
+server.listen(3000, () => {
+  console.log("🚀 Server + Socket.IO berjalan di port 3000");
+});
+
+function deleteRoomFromFile(roomId) {
+  const roomFilePath = path.join(__dirname, "data", "room.json");
+
+  fs.readFile(roomFilePath, "utf8", (err, data) => {
+    if (err) return console.error("❌ Gagal baca room.json");
+
+    let rooms = JSON.parse(data);
+
+    const newRooms = rooms.filter((room) => room.id != roomId);
+
+    fs.writeFile(roomFilePath, JSON.stringify(newRooms, null, 2), (err) => {
+      if (err) {
+        console.error("❌ Gagal hapus room");
+      } else {
+        console.log(`✅ Room ${roomId} berhasil dihapus`);
+      }
+    });
+  });
+}

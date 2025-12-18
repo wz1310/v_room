@@ -19,6 +19,7 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   </head>
   <body>
     <header class="app-header">
@@ -54,13 +55,7 @@
             <div class="host-avatar-wrapper">
               <div class="host-glow"></div>
               <div class="avatar-host">
-                <div
-                  class="avatar-img"
-                  data-alt="DJ Rara portrait with headphones"
-                  style="
-                    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD-34e7MFj2kOoORypJrmZPyjpagj7hjg2eyTMgkyqvy2_wDImKIQ8No7gvegDo8_6O8dRULELwvxyIB4JCOdMgoiyeUAe9mJIHMiyivQwRrDimBVj1Ov9Fuflk-gQ1eVqnn5pqGjVrjFSiUUEoWxTED4lTeqpeKprPOgfgPA5LFSAZTILdGmvljcHjnSoJWjss8k_W9_YvTEZZ36EG9ZjXXgmnvRskeK67_jQuzlrla176PQpqanC8nOKJpwoqxL1Xkdk90gseTF1D');
-                  "
-                ></div>
+                <div class="avatar-img"></div>
               </div>
               <div class="mic-badge">
                 <span class="material-symbols-outlined" style="font-size: 16px"
@@ -79,10 +74,6 @@
                 <div class="avatar-speaker">
                   <div
                     class="avatar-img"
-                    data-alt="Male speaker with glasses"
-                    style="
-                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCMghMNO8pkqo1tiFUMKekPR1YIwV9Zb1KNb98QtwFLb6rZZi2zpD6duglJlqvF7XDsCdHl8OvrC1GoHktcvHblEKkA4pw7NblC12X-q-GtrhaB2k85pTn7ZrDvQO_WAvrEsm7hpHFSEQwh8ZszWQvwVxUidVXJQuYqPZBY62A1SzdIRhYhSw0rzRyMRLcxmZ-2w7YIoM7lNrXLrFZjUwR7nN5MyOUkoZfGOAFIeP5ZbTWcidxQpNPGIa6rhv2nejGMquVJIl6E5gaq');
-                    "
                   ></div>
                 </div>
                 <div class="mic-badge muted">
@@ -100,10 +91,6 @@
                 <div class="avatar-speaker">
                   <div
                     class="avatar-img"
-                    data-alt="Female speaker smiling"
-                    style="
-                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBuWI4MH4B4IcWkTtm1lLjX3OKkbXa7P2FTH8Y9SZp4nzlytkOiyNMbQcDbae05NMblIg7fsLfRXshDcoXcZio4qW-g2MAzE1oXlhlSxhyEBkbTFRKF-4-hkeWaVQwd4PD5Frn1tjm8WajERcS8Il2AgfaMIt92HjI7uUDLTrksk7jyPCgvLRbID2UNvA_GvdaCeD6tMZHkHypL_TRqgd0F5KhYSrGPk8clOC6m7Fdaejgl0-RtA-kjpW8PazLJloio1dQt9G3uVXtI');
-                    "
                   ></div>
                 </div>
                 <div class="mic-badge muted">
@@ -121,10 +108,6 @@
                 <div class="avatar-speaker">
                   <div
                     class="avatar-img"
-                    data-alt="Male speaker with cap"
-                    style="
-                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDkiMq-HIfPT4wQA4R0Gtk9voHYZoCorffp_StbMRnCbySbEr4_AvDeuojC4kb6YkRrcImZDJyD3bi25wVbvN1K9XW4h_jt6E_z-MOS7Qn1vdxuIN_xijxvurbbtqmuxVBqNrwVxmKAW1AV-nOtqJPuid79DWFSKYlGHAZr-L84jT1qldvYgKewpvGa8w8H5Lg0Y4a63KqckAcoEAx3hy2w5-oafctMSOQT4lClReRDoTWIAdv35PqsWq2Kr2BP6jTX2pSBIs3qgmvQ');
-                    "
                   ></div>
                 </div>
                 <div class="mic-badge muted">
@@ -245,6 +228,7 @@
         <span class="material-symbols-outlined">chat_bubble</span>
       </button>
     </div>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="js/room.js"></script>
   </body>
 </html>
