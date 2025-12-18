@@ -9,6 +9,8 @@ const app = express();
 const server = http.createServer(app);
 
 // Credentials Twilio dari contohmu
+const TWILIO_SID = "";
+const TWILIO_AUTH = "";
 const twilioClient = twilio(TWILIO_SID, TWILIO_AUTH);
 
 app.use(cors());
