@@ -117,9 +117,37 @@ io.on("connection", (socket) => {
     console.log(`👥 Room ${roomId} | Users: ${activeRooms[roomId].users.size}`);
   });
 
+  // server.js
+
   socket.on("leave_slot", ({ roomId, slotIndex }) => {
-    // Beritahu semua orang di room bahwa slot ini sekarang kosong
-    io.to(roomId).emit("slot_cleared", { slotIndex });
+    // Pastikan roomId ada untuk menghindari error
+    if (roomId) {
+      // Broadcast ke semua user di room tersebut (termasuk pengirim atau orang lain)
+      // agar tampilan slotIndex tersebut menjadi kosong kembali
+      io.to(roomId).emit("slot_cleared", { slotIndex });
+      io.to(roomId).emit("mic_status_updated", { slotIndex, isMuted: false });
+      console.log(`🧹 Slot ${slotIndex} di Room ${roomId} telah dikosongkan.`);
+    }
+  });
+
+  // Di dalam io.on("connection", ...)
+  socket.on("toggle_mic", ({ roomId, slotIndex, isMuted }) => {
+    // Beritahu semua orang di room bahwa status mic di slot tersebut berubah
+    io.to(roomId).emit("mic_status_updated", { slotIndex, isMuted });
+  });
+
+  socket.on("mic_status_updated", ({ slotIndex, isMuted }) => {
+    const slots = document.querySelectorAll(".speaker-item");
+    const targetMicBadge = slots[slotIndex].querySelector(".mic-badge");
+    const micIcon = targetMicBadge.querySelector("span");
+
+    if (isMuted) {
+      targetMicBadge.classList.add("muted-red"); // Kita buat class baru di CSS
+      micIcon.innerText = "mic_off";
+    } else {
+      targetMicBadge.classList.remove("muted-red");
+      micIcon.innerText = "mic";
+    }
   });
 
   // Anda perlu melacak user mana menempati slot mana di server.js (simplifikasi)
@@ -239,10 +267,6 @@ app.post("/api/rooms", (req, res) => {
   });
 });
 
-server.listen(3000, () => {
-  console.log("🚀 Server + Socket.IO berjalan di port 3000");
-});
-
 function deleteRoomFromFile(roomId) {
   const roomFilePath = path.join(__dirname, "data", "room.json");
 
@@ -262,3 +286,7 @@ function deleteRoomFromFile(roomId) {
     });
   });
 }
+
+server.listen(3000, () => {
+  console.log("🚀 Server + Socket.IO berjalan di port 3000");
+});

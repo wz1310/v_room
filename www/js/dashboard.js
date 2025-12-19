@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const userData = JSON.parse(localStorage.getItem("user"));
   const user = localStorage.getItem("user");
   const roomGrid = document.querySelector(".room-grid");
-  const SERVER_URL = "https://m3h048qq-3000.asse.devtunnels.ms/api/rooms";
+  const SERVER_URL = "https://c1jx4415-3000.asse.devtunnels.ms/api/rooms";
   const addBtn = document.getElementById("addBtn");
   const modal = document.getElementById("addRoomModal");
   const closeModal = document.querySelector(".close-modal");
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       // 2. Kirim ke Server
-      fetch("https://m3h048qq-3000.asse.devtunnels.ms/api/rooms", {
+      fetch("https://c1jx4415-3000.asse.devtunnels.ms/api/rooms", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loadRooms() {
-    fetch("https://m3h048qq-3000.asse.devtunnels.ms/api/rooms")
+    fetch("https://c1jx4415-3000.asse.devtunnels.ms/api/rooms")
       .then((res) => res.json())
       .then((rooms) => {
         const roomGrid = document.querySelector(".room-grid");

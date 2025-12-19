@@ -272,6 +272,8 @@ input {
   background-repeat: no-repeat;
 }
 .mic-badge {
+  transition: all 0.3s ease;
+  cursor: pointer;
   position: absolute;
   bottom: 4px;
   right: 4px;
@@ -286,6 +288,11 @@ input {
 }
 .mic-badge.muted {
   background-color: #334155;
+}
+/* Class saat mic dimatikan */
+.mic-badge.muted-red {
+  background-color: #ff4d4d !important; /* Warna merah */
+  color: white !important;
 }
 .host-info {
   text-align: center;

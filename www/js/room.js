@@ -12,7 +12,7 @@ const userData = JSON.parse(localStorage.getItem("user"));
 let currentSlotIndex = null; // Melacak slot mana yang sedang ditempati user ini
 
 // 1. Inisialisasi awal di luar agar bisa diakses fungsi lain
-const socket = io("https://m3h048qq-3000.asse.devtunnels.ms", {
+const socket = io("https://c1jx4415-3000.asse.devtunnels.ms", {
   transports: ["polling", "websocket"],
 });
 socket.on("connect", () => {
@@ -34,17 +34,48 @@ socket.on("room_user_count", ({ count }) => {
     onlineEl.innerText = `${count} Online`;
   }
 });
+// Listener untuk menerima status mic dari server
+socket.on("mic_status_updated", ({ slotIndex, isMuted }) => {
+  const slots = document.querySelectorAll(".speaker-item");
+  const targetSlot = slots[slotIndex];
+
+  if (targetSlot) {
+    const micBadge = targetSlot.querySelector(".mic-badge");
+    const micIcon = micBadge.querySelector("span");
+
+    if (isMuted) {
+      micBadge.classList.add("muted-red");
+      micIcon.innerText = "mic_off"; // Ganti icon jadi mic mati
+    } else {
+      micBadge.classList.remove("muted-red");
+      micIcon.innerText = "mic"; // Kembali ke icon mic aktif
+    }
+  }
+});
 
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const roomId = urlParams.get("id");
   const titleElement = document.getElementById("roomDisplayTitle");
   const idElement = document.getElementById("roomDisplayId");
-  // ... kode yang sudah ada ...
+  // Di dalam document.addEventListener("DOMContentLoaded", ...)
+
+  // Di dalam document.addEventListener("DOMContentLoaded", ...)
   document.querySelector(".btn-leave").addEventListener("click", () => {
-    socket.disconnect();
-    window.location.href = "dashboard.html";
+    // Jika user sedang di panggung (slot), kirim perintah hapus
+    if (currentSlotIndex !== null) {
+      socket.emit("leave_slot", { roomId, slotIndex: currentSlotIndex });
+    }
+
+    // Berikan jeda sangat singkat agar emit terkirim, lalu disconnect
+    setTimeout(() => {
+      socket.disconnect();
+      window.location.href = "dashboard.html";
+    }, 100);
   });
+
+  // PANGGIL DI SINI agar listener klik mic aktif
+  setupMicBadgeToggle();
 
   iceServersGlobal = await connectToTwilio();
   if (iceServersGlobal) {
@@ -60,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   idElement.innerText = `#${roomId}`;
 
   // 2. Ambil data room dari server
-  fetch(`https://m3h048qq-3000.asse.devtunnels.ms/api/rooms`)
+  fetch(`https://c1jx4415-3000.asse.devtunnels.ms/api/rooms`)
     .then((res) => res.json())
     .then((rooms) => {
       const currentRoom = rooms.find((r) => r.id == roomId);
@@ -87,7 +118,7 @@ async function connectToTwilio() {
     console.log("--- Mencoba menghubungkan ke Twilio TURN Server... ---");
 
     const response = await fetch(
-      "https://m3h048qq-3000.asse.devtunnels.ms/turn-token"
+      "https://c1jx4415-3000.asse.devtunnels.ms/turn-token"
     );
 
     if (!response.ok) {
@@ -108,7 +139,7 @@ async function connectToTwilio() {
 }
 
 async function fetchRoomDetail() {
-  const res = await fetch("https://m3h048qq-3000.asse.devtunnels.ms/api/rooms");
+  const res = await fetch("https://c1jx4415-3000.asse.devtunnels.ms/api/rooms");
   const rooms = await res.json();
   const room = rooms.find((r) => r.id == roomId);
 
@@ -368,3 +399,27 @@ socket.on("slot_updated", async ({ slotIndex, user }) => {
     }
   }
 });
+function setupMicBadgeToggle() {
+  const slots = document.querySelectorAll(".speaker-item");
+
+  slots.forEach((slot, index) => {
+    const micBadge = slot.querySelector(".mic-badge");
+
+    micBadge.addEventListener("click", (e) => {
+      e.stopPropagation(); // Agar tidak memicu event klik pada slot (turun panggung)
+
+      // Hanya user yang menempati slot tersebut yang bisa mute dirinya sendiri
+      if (currentSlotIndex !== index || !localStream) return;
+
+      const audioTrack = localStream.getAudioTracks()[0];
+      if (audioTrack) {
+        // Balikkan status enabled (jika true jadi false, dst)
+        audioTrack.enabled = !audioTrack.enabled;
+        const isMuted = !audioTrack.enabled;
+
+        // Beritahu server
+        socket.emit("toggle_mic", { roomId, slotIndex: index, isMuted });
+      }
+    });
+  });
+}
