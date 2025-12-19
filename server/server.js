@@ -117,6 +117,18 @@ io.on("connection", (socket) => {
     console.log(`👥 Room ${roomId} | Users: ${activeRooms[roomId].users.size}`);
   });
 
+  socket.on("leave_slot", ({ roomId, slotIndex }) => {
+    // Beritahu semua orang di room bahwa slot ini sekarang kosong
+    io.to(roomId).emit("slot_cleared", { slotIndex });
+  });
+
+  // Anda perlu melacak user mana menempati slot mana di server.js (simplifikasi)
+  socket.on("disconnect", () => {
+    // Cari apakah socket.id ini sedang menempati slot, jika iya broadcast "slot_cleared"
+    // Contoh sederhana:
+    io.emit("check_and_clear_abandoned_slots", { socketId: socket.id });
+  });
+
   socket.on("occupy_slot", ({ roomId, slotIndex, user }) => {
     // Kirim ke semua orang di room tersebut bahwa slot X sudah diisi oleh User Y
     io.to(roomId).emit("slot_updated", {

@@ -9,6 +9,7 @@ const params = new URLSearchParams(window.location.search);
 const roomId = params.get("id");
 let isHost = false;
 const userData = JSON.parse(localStorage.getItem("user"));
+let currentSlotIndex = null; // Melacak slot mana yang sedang ditempati user ini
 
 // 1. Inisialisasi awal di luar agar bisa diakses fungsi lain
 const socket = io("https://m3h048qq-3000.asse.devtunnels.ms", {
@@ -142,25 +143,37 @@ function setupSpeakerSlots() {
 
   slots.forEach((slot, index) => {
     slot.addEventListener("click", async function () {
-      if (isHost || localStream) return;
+      if (isHost) return;
+
+      // LOGIKA TURUN PANGGUNG: Jika klik slot yang sedang ditempati sendiri
+      if (currentSlotIndex === index) {
+        if (localStream) {
+          localStream.getTracks().forEach((track) => track.stop()); // Matikan mic
+          localStream = null;
+        }
+
+        socket.emit("leave_slot", { roomId, slotIndex: index });
+        currentSlotIndex = null;
+        console.log("Anda telah turun dari panggung.");
+        return;
+      }
+
+      // LOGIKA NAIK PANGGUNG: Jika belum punya slot dan klik slot kosong
+      if (localStream) return; // Mencegah pindah-pindah slot tanpa turun dulu
 
       try {
-        // 1. Ambil izin mic
         localStream = await navigator.mediaDevices.getUserMedia({
           audio: true,
         });
+        currentSlotIndex = index;
 
-        // 2. Beritahu server bahwa kita mengambil slot ini
         socket.emit("occupy_slot", {
           roomId,
           slotIndex: index,
           user: userData,
         });
-
-        console.log("Meminta izin naik panggung...");
       } catch (err) {
         console.error("Gagal akses mic:", err);
-        alert("Izin mic diperlukan!");
       }
     });
   });
@@ -207,6 +220,21 @@ function setupVoiceIndicator(stream) {
 
   animate();
 }
+
+socket.on("slot_cleared", ({ slotIndex }) => {
+  const slots = document.querySelectorAll(".speaker-item");
+  const targetSlot = slots[slotIndex];
+
+  if (targetSlot) {
+    // Kembalikan tampilan ke default (contoh: 'Empty Slot')
+    targetSlot.querySelector(".speaker-name").innerText = "Empty Slot";
+    targetSlot.querySelector(".mic-badge").classList.add("muted");
+    targetSlot.querySelector(".mic-badge span").innerText = "mic_off";
+
+    // Opsional: Jika Host, hapus peer connection dari user yang turun jika perlu
+    // Namun biasanya WebRTC akan mendeteksi track terputus secara otomatis
+  }
+});
 
 socket.on("webrtc-answer", async ({ answer, fromSocketId }) => {
   const pc = peerConnections[fromSocketId];
