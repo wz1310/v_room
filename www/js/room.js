@@ -227,7 +227,7 @@ socket.on("slot_cleared", ({ slotIndex }) => {
 
   if (targetSlot) {
     // Kembalikan tampilan ke default (contoh: 'Empty Slot')
-    targetSlot.querySelector(".speaker-name").innerText = "Empty Slot";
+    targetSlot.querySelector(".speaker-name").innerText = "";
     targetSlot.querySelector(".mic-badge").classList.add("muted");
     targetSlot.querySelector(".mic-badge span").innerText = "mic_off";
 
