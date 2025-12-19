@@ -11,7 +11,7 @@ let isHost = false;
 const userData = JSON.parse(localStorage.getItem("user"));
 
 // 1. Inisialisasi awal di luar agar bisa diakses fungsi lain
-const socket = io("https://c1jx4415-3000.asse.devtunnels.ms", {
+const socket = io("https://m3h048qq-3000.asse.devtunnels.ms", {
   transports: ["polling", "websocket"],
 });
 socket.on("connect", () => {
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   idElement.innerText = `#${roomId}`;
 
   // 2. Ambil data room dari server
-  fetch(`https://c1jx4415-3000.asse.devtunnels.ms/api/rooms`)
+  fetch(`https://m3h048qq-3000.asse.devtunnels.ms/api/rooms`)
     .then((res) => res.json())
     .then((rooms) => {
       const currentRoom = rooms.find((r) => r.id == roomId);
@@ -86,7 +86,7 @@ async function connectToTwilio() {
     console.log("--- Mencoba menghubungkan ke Twilio TURN Server... ---");
 
     const response = await fetch(
-      "https://c1jx4415-3000.asse.devtunnels.ms/turn-token"
+      "https://m3h048qq-3000.asse.devtunnels.ms/turn-token"
     );
 
     if (!response.ok) {
@@ -107,7 +107,7 @@ async function connectToTwilio() {
 }
 
 async function fetchRoomDetail() {
-  const res = await fetch("https://c1jx4415-3000.asse.devtunnels.ms/api/rooms");
+  const res = await fetch("https://m3h048qq-3000.asse.devtunnels.ms/api/rooms");
   const rooms = await res.json();
   const room = rooms.find((r) => r.id == roomId);
 
@@ -127,10 +127,43 @@ async function startVoice() {
     isHost,
   });
 
-  if (!isHost) return;
+  // Jika Host, langsung aktifkan mic
+  if (isHost) {
+    localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    setupVoiceIndicator(localStream);
+  } else {
+    // Jika Pendengar, panggil fungsi untuk setup klik slot
+    setupSpeakerSlots();
+  }
+}
 
-  localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  setupVoiceIndicator(localStream);
+function setupSpeakerSlots() {
+  const slots = document.querySelectorAll(".speaker-item");
+
+  slots.forEach((slot, index) => {
+    slot.addEventListener("click", async function () {
+      if (isHost || localStream) return;
+
+      try {
+        // 1. Ambil izin mic
+        localStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
+
+        // 2. Beritahu server bahwa kita mengambil slot ini
+        socket.emit("occupy_slot", {
+          roomId,
+          slotIndex: index,
+          user: userData,
+        });
+
+        console.log("Meminta izin naik panggung...");
+      } catch (err) {
+        console.error("Gagal akses mic:", err);
+        alert("Izin mic diperlukan!");
+      }
+    });
+  });
 }
 
 function setupVoiceIndicator(stream) {
@@ -183,12 +216,22 @@ socket.on("webrtc-answer", async ({ answer, fromSocketId }) => {
 });
 
 socket.on("webrtc-offer", async ({ offer, fromSocketId }) => {
-  if (isHost) return; // host tidak perlu jawab offer
+  if (isHost) return;
 
   const pc = new RTCPeerConnection({ iceServers: iceServersGlobal });
   peerConnections[fromSocketId] = pc;
 
+  // --- TAMBAHKAN BAGIAN INI ---
+  // Jika User 2 sudah klik slot (punya localStream), masukkan ke koneksi
+  if (localStream) {
+    localStream.getTracks().forEach((track) => {
+      pc.addTrack(track, localStream);
+    });
+  }
+  // ----------------------------
+
   pc.ontrack = (event) => {
+    // Logika pendengar mendengar suara host (sudah ada di kode anda)
     const audio = document.createElement("audio");
     audio.srcObject = event.streams[0];
     audio.autoplay = true;
@@ -196,6 +239,7 @@ socket.on("webrtc-offer", async ({ offer, fromSocketId }) => {
     document.body.appendChild(audio);
   };
 
+  // ... (sisa kode ice candidate dan answer tetap sama)
   pc.onicecandidate = (e) => {
     if (e.candidate) {
       socket.emit("webrtc-ice", {
@@ -232,9 +276,28 @@ async function createOfferForPeer(peerSocketId) {
   const pc = new RTCPeerConnection({ iceServers: iceServersGlobal });
   peerConnections[peerSocketId] = pc;
 
-  localStream.getTracks().forEach((track) => {
-    pc.addTrack(track, localStream);
-  });
+  // --- TAMBAHKAN BAGIAN INI ---
+  // Agar Host bisa mendengar suara dari User 2
+  pc.ontrack = (event) => {
+    console.log("🎤 Menerima stream suara dari pembicara...");
+    let audio = document.getElementById(`audio-${peerSocketId}`);
+    if (!audio) {
+      audio = document.createElement("audio");
+      audio.id = `audio-${peerSocketId}`;
+      audio.autoplay = true;
+      audio.playsInline = true;
+      document.body.appendChild(audio);
+    }
+    audio.srcObject = event.streams[0];
+  };
+  // ----------------------------
+
+  // Tetap kirim suara Host ke User 2 jika localStream ada
+  if (localStream) {
+    localStream.getTracks().forEach((track) => {
+      pc.addTrack(track, localStream);
+    });
+  }
 
   pc.onicecandidate = (e) => {
     if (e.candidate) {
@@ -253,3 +316,27 @@ async function createOfferForPeer(peerSocketId) {
     offer,
   });
 }
+
+// Listener untuk Host: Jika ada yang klik slot, Host buat koneksi baru untuk dengar user tsb
+socket.on("request_to_speak", ({ socketId }) => {
+  if (isHost) {
+    createOfferForPeer(socketId);
+  }
+});
+socket.on("slot_updated", async ({ slotIndex, user }) => {
+  const slots = document.querySelectorAll(".speaker-item");
+  const targetSlot = slots[slotIndex];
+
+  if (targetSlot) {
+    // 1. Update Nama di UI (berlaku untuk semua user di room)
+    targetSlot.querySelector(".speaker-name").innerText = user.nama;
+    targetSlot.querySelector(".mic-badge").classList.remove("muted");
+    targetSlot.querySelector(".mic-badge span").innerText = "mic";
+
+    // 2. Logika Suara: Jika saya adalah Host, saya buat koneksi ke user tersebut
+    if (isHost) {
+      console.log(`Menyambungkan suara ke pembicara baru: ${user.nama}`);
+      createOfferForPeer(user.socketId);
+    }
+  }
+});

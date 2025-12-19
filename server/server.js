@@ -117,6 +117,25 @@ io.on("connection", (socket) => {
     console.log(`👥 Room ${roomId} | Users: ${activeRooms[roomId].users.size}`);
   });
 
+  socket.on("occupy_slot", ({ roomId, slotIndex, user }) => {
+    // Kirim ke semua orang di room tersebut bahwa slot X sudah diisi oleh User Y
+    io.to(roomId).emit("slot_updated", {
+      slotIndex,
+      user: {
+        nama: user.nama,
+        socketId: socket.id,
+      },
+    });
+  });
+
+  socket.on("request_to_speak", ({ roomId, socketId }) => {
+    const room = activeRooms[roomId];
+    if (room && room.hostSocketId) {
+      // Kirim pesan ke Host bahwa user ini siap mengirim suara
+      io.to(room.hostSocketId).emit("request_to_speak", { socketId });
+    }
+  });
+
   socket.on("disconnect", () => {
     for (const roomId in activeRooms) {
       const room = activeRooms[roomId];

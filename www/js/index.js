@@ -27,7 +27,7 @@ function onDeviceReady() {
     const username = loginForm.querySelector('input[type="text"]').value;
     const password = passwordInput.value;
 
-    const SERVER_URL = "https://c1jx4415-3000.asse.devtunnels.ms/api/login";
+    const SERVER_URL = "https://m3h048qq-3000.asse.devtunnels.ms/api/login";
 
     fetch(SERVER_URL, {
       method: "POST",
