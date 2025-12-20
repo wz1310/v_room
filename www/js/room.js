@@ -89,9 +89,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   socket.on("receive_message", (data) => {
     const isSelf = data.userId === userData.id;
 
+    // tambah avatar <div class="chat-avatar" style="background-color: #4b5563; border: 1px solid var(--border);"></div>
+
     const msgHTML = `
     <div class="msg-row ${isSelf ? "self" : ""}">
-      <div class="chat-avatar" style="background-color: #4b5563; border: 1px solid var(--border);"></div>
+      
       <div class="msg-content">
         <div class="msg-meta" style="${
           isSelf ? "justify-content: flex-end" : ""

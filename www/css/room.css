@@ -313,7 +313,7 @@ input {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
   padding: 0 1rem;
 }
 @media (min-width: 768px) {
@@ -511,6 +511,7 @@ input {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  background-color: #00000000;
 }
 .system-msg {
   display: flex;
@@ -562,14 +563,15 @@ input {
   color: var(--text-dim);
 }
 .msg-bubble {
-  padding: 0.75rem;
-  font-size: 0.875rem;
+  padding: 4px;
+  font-size: 11px;
   line-height: 1.4;
   color: #e2e8f0;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .msg-row:not(.self) .msg-bubble {
   background-color: var(--bg-surface-secondary);
+  margin-right:auto;
   border-top-right-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
@@ -681,4 +683,35 @@ input {
 /* Sembunyikan FAB jika sidebar sedang terbuka */
 body:has(.chat-sidebar.open) .fab-chat {
   display: none !important;
+}
+/* CSS untuk tampilan Mobile (lebar layar di bawah 768px) */
+@media (max-width: 768px) {
+  .chat-sidebar {
+    /* Menggunakan RGBA: 0,0,0 adalah hitam, 0.7 adalah 70% opacity */
+    /* Sesuaikan angka 0.7 (0.0 sangat transparan, 1.0 sangat pekat) */
+    background: rgba(17, 24, 39, 0.7) !important; 
+    
+    /* Efek Blur (Opsional: Membuat chat lebih mudah dibaca di atas background) */
+    /* backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); */
+    
+    /* Memastikan chat sidebar melayang di atas konten room */
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 85%; /* Sesuaikan lebar sidebar di mobile */
+    z-index: 1000;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Membuat bubble chat juga sedikit transparan agar estetik */
+  .msg-bubble {
+    background: rgba(55, 65, 81, 0.8) !important;
+  }
+
+  /* Pastikan area input chat tetap terlihat jelas */
+  .chat-input-area {
+    background: rgba(31, 41, 55, 0.9) !important;
+  }
 }
