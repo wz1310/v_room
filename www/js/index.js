@@ -24,6 +24,12 @@ function onDeviceReady() {
   loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
+    // Ambil elemen loading
+    const loadingOverlay = document.getElementById("loadingOverlay");
+
+    // TAMPILKAN LOADING
+    loadingOverlay.style.display = "flex";
+
     const username = loginForm.querySelector('input[type="text"]').value;
     const password = passwordInput.value;
 
@@ -45,6 +51,8 @@ function onDeviceReady() {
               console.log("Akses mic diberikan");
               // Hentikan stream sementara karena kita hanya butuh izinnya dulu
               stream.getTracks().forEach((track) => track.stop());
+              // SEMBUNYIKAN LOADING sebelum pindah halaman
+              loadingOverlay.style.display = "none";
               window.location.href = "dashboard.html";
             })
             .catch((err) => {
@@ -52,10 +60,14 @@ function onDeviceReady() {
               window.location.href = "dashboard.html"; // Tetap pindah atau blokir sesuai keinginan
             });
         } else {
+          // SEMBUNYIKAN LOADING jika gagal login
+          loadingOverlay.style.display = "none";
           alert(data.message);
         }
       })
       .catch((error) => {
+        // SEMBUNYIKAN LOADING jika koneksi server mati
+        loadingOverlay.style.display = "none";
         alert("Koneksi gagal! Pastikan server aktif.");
       });
   });
