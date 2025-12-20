@@ -7,6 +7,8 @@ const fs = require("fs"); // Tambahkan ini
 const path = require("path"); // Tambahkan ini
 const app = express();
 const server = http.createServer(app);
+// Tambahkan di bagian atas bersama path lainnya
+const chatFilePath = path.join(__dirname, "data", "chat_room.json");
 
 // Credentials Twilio dari contohmu
 const TWILIO_SID = "";
@@ -115,6 +117,35 @@ io.on("connection", (socket) => {
     });
 
     console.log(`👥 Room ${roomId} | Users: ${activeRooms[roomId].users.size}`);
+  });
+
+  socket.on("send_message", ({ roomId, userId, username, message }) => {
+    const newMessage = {
+      roomId: roomId,
+      userId: userId,
+      username: username,
+      message: message,
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      timestamp: Date.now(),
+    };
+
+    // Simpan ke file JSON
+    fs.readFile(chatFilePath, "utf8", (err, data) => {
+      if (err) return console.error("Gagal baca chat file");
+
+      let chats = JSON.parse(data);
+      chats.push(newMessage);
+
+      fs.writeFile(chatFilePath, JSON.stringify(chats, null, 2), (err) => {
+        if (err) console.error("Gagal simpan chat");
+      });
+    });
+
+    // Kirim ke semua orang di room tersebut
+    io.to(roomId).emit("receive_message", newMessage);
   });
 
   // server.js
@@ -283,10 +314,52 @@ function deleteRoomFromFile(roomId) {
       } else {
         console.log(`✅ Room ${roomId} berhasil dihapus`);
       }
+      // 2. Hapus Chat terkait roomId tersebut dari chat_room.json
+      cleanChatHistory(roomId);
     });
+  });
+}
+// Fungsi pembantu untuk membersihkan chat
+function cleanChatHistory(roomId) {
+  const chatFilePath = path.join(__dirname, "data", "chat_room.json");
+
+  fs.readFile(chatFilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("❌ Gagal baca chat_room.json");
+      return;
+    }
+
+    try {
+      let allChats = JSON.parse(data);
+
+      // Filter: Hanya simpan chat yang roomId-nya TIDAK sama dengan room yang dihapus
+      // Pastikan perbandingan tipe data benar (misal: menggunakan != agar string/number cocok)
+      const filteredChats = allChats.filter((chat) => chat.roomId != roomId);
+
+      fs.writeFile(
+        chatFilePath,
+        JSON.stringify(filteredChats, null, 2),
+        (err) => {
+          if (err) {
+            console.error("❌ Gagal membersihkan riwayat chat");
+          } else {
+            console.log(
+              `🧹 Riwayat chat untuk Room ${roomId} telah dibersihkan.`
+            );
+          }
+        }
+      );
+    } catch (parseErr) {
+      console.error("❌ Error parsing chat JSON:", parseErr);
+    }
   });
 }
 
 server.listen(3000, () => {
   console.log("🚀 Server + Socket.IO berjalan di port 3000");
 });
+
+// Pastikan file chat_room.json ada saat server mulai
+if (!fs.existsSync(chatFilePath)) {
+  fs.writeFileSync(chatFilePath, JSON.stringify([]));
+}

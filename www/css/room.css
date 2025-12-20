@@ -535,8 +535,7 @@ input {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-size: cover;
-  background-position: center;
+  background-color: #4b5563; /* Warna abu-abu */
   flex-shrink: 0;
 }
 .msg-content {
@@ -671,4 +670,15 @@ input {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: #3e466b;
   border-radius: 20px;
+}
+/* Sembunyikan FAB Chat ketika sidebar sedang terbuka (Khusus Mobile) */
+@media (max-width: 767px) {
+  /* Jika chat-sidebar memiliki class 'open', maka fab-chat yang ada setelahnya akan disembunyikan */
+  .chat-sidebar.open .fab-chat {
+    display: none;
+  }
+}
+/* Sembunyikan FAB jika sidebar sedang terbuka */
+body:has(.chat-sidebar.open) .fab-chat {
+  display: none !important;
 }

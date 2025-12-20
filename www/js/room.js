@@ -58,7 +58,60 @@ document.addEventListener("DOMContentLoaded", async () => {
   const roomId = urlParams.get("id");
   const titleElement = document.getElementById("roomDisplayTitle");
   const idElement = document.getElementById("roomDisplayId");
-  // Di dalam document.addEventListener("DOMContentLoaded", ...)
+  // Tambahkan di dalam document.addEventListener("DOMContentLoaded", ...)
+  const chatInput = document.getElementById("chatInput");
+  const btnSend = document.getElementById("btnSend");
+  const chatMessages = document.getElementById("chatMessages");
+
+  // Fungsi Kirim Pesan
+  function sendMessage() {
+    const message = chatInput.value.trim();
+    if (message && userData) {
+      socket.emit("send_message", {
+        roomId: roomId,
+        userId: userData.id,
+        username: userData.nama,
+        message: message,
+      });
+      chatInput.value = ""; // Kosongkan input
+    }
+  }
+
+  // Event Klik Tombol
+  btnSend.addEventListener("click", sendMessage);
+
+  // Event Tekan Enter
+  chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
+  });
+
+  // Listener pesan masuk dari server
+  socket.on("receive_message", (data) => {
+    const isSelf = data.userId === userData.id;
+
+    const msgHTML = `
+    <div class="msg-row ${isSelf ? "self" : ""}">
+      <div class="chat-avatar" style="background-color: #4b5563; border: 1px solid var(--border);"></div>
+      <div class="msg-content">
+        <div class="msg-meta" style="${
+          isSelf ? "justify-content: flex-end" : ""
+        }">
+          ${isSelf ? "" : `<span class="msg-name">${data.username}</span>`}
+          <span class="msg-time">${data.time}</span>
+          ${isSelf ? `<span class="msg-name">You</span>` : ""}
+        </div>
+        <div class="msg-bubble">
+          ${data.message}
+        </div>
+      </div>
+    </div>
+  `;
+
+    chatMessages.insertAdjacentHTML("beforeend", msgHTML);
+
+    // Auto scroll ke bawah
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  });
 
   // Di dalam document.addEventListener("DOMContentLoaded", ...)
   document.querySelector(".btn-leave").addEventListener("click", () => {
