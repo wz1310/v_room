@@ -715,3 +715,39 @@ body:has(.chat-sidebar.open) .fab-chat {
     background: rgba(31, 41, 55, 0.9) !important;
   }
 }
+
+/* Pastikan container mengizinkan pembungkusan teks */
+.brand-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0; /* Penting agar flex item bisa mengecil */
+  max-width: 200px; /* Batasi lebar maksimal sesuai kebutuhan area header */
+}
+
+#roomDisplayTitle {
+  font-size: 1.125rem; /* Ukuran default */
+  font-weight: 700;
+  line-height: 1.2;
+  word-wrap: break-word; /* Memaksa kata turun jika terlalu panjang */
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Batasi maksimal 2 baris agar tidak merusak header */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Teknik Fluid Typography agar mengecil di layar kecil */
+  font-size: clamp(0.875rem, 2vw, 1.125rem); 
+}
+
+/* Untuk ID Room jika ditampilkan */
+#roomDisplayId {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Responsivitas untuk layar sangat kecil */
+@media (max-width: 480px) {
+  .brand-info {
+    max-width: 150px; /* Lebih kecil lagi di HP */
+  }
+}
