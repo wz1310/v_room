@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Karaoke Room Web Interface</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6", // Vibrant Blue from button
+                        secondary: "#8B5CF6", // Purple accent
+                        "background-light": "#E0F2FE", // Very light blue for light mode
+                        "background-dark": "#0F172A", // Deep navy for dark mode
+                        "surface-dark": "#1E293B",
+                        "surface-light": "#FFFFFF",
+                        "karaoke-purple": "#4c1d95",
+                        "karaoke-blue": "#1e3a8a",
+                    },
+                    fontFamily: {
+                        display: ["Nunito", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                        'xl': "1rem",
+                        '2xl': "1.5rem",
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'karaoke-bg': "linear-gradient(to bottom, #1e1b4b, #3b0764, #1d4ed8)",
+                    }
+                },
+            },
+        };
+    </script>
+<style>.scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }.glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-heavy {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }@keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+        .speaking-ring::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            border: 2px solid #60A5FA;
+            animation: pulse-ring 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display h-screen overflow-hidden flex flex-col transition-colors duration-300">
+<div class="relative w-full h-full flex flex-col bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 text-white overflow-hidden">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30 pointer-events-none"></div>
+<div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black/50 to-transparent pointer-events-none z-0"></div>
+<header class="flex items-center justify-between px-4 py-3 z-20 relative">
+<div class="flex items-center space-x-3">
+<button class="p-2 rounded-full hover:bg-white/10 transition">
+<span class="material-icons-round text-white">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="text-lg font-bold leading-tight flex items-center gap-2">
+<span>---/N//</span>
+<div class="flex -space-x-2">
+<div class="w-5 h-5 rounded-full bg-gray-700 text-[10px] flex items-center justify-center border border-white">4</div>
+</div>
+</h1>
+<div class="flex items-center space-x-2 text-xs mt-1">
+<span class="bg-purple-600/80 px-2 py-0.5 rounded-full">ID: 882910</span>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col lg:flex-row overflow-hidden relative z-10 p-2 lg:p-6 gap-4 lg:gap-8">
+<div class="flex-1 flex flex-col space-y-4 lg:space-y-6 lg:max-w-2xl mx-auto w-full">
+<div class="relative bg-indigo-950/60 rounded-2xl p-6 lg:p-8 backdrop-blur-md border border-white/10 shadow-xl overflow-hidden group">
+<div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(#4f46e5 1px, transparent 1px), linear-gradient(90deg, #4f46e5 1px, transparent 1px); background-size: 20px 20px;"></div>
+<button class="absolute top-3 right-3 text-white/70 hover:text-white">
+<span class="material-icons-round">close</span>
+</button>
+<div class="relative z-10 flex flex-col items-center text-center space-y-4">
+<h2 class="text-xl font-bold text-white">Tidak Ada Lagu</h2>
+<p class="text-indigo-200 text-sm">Gunakan earphone untuk menghindari gema</p>
+<div class="flex items-center gap-4 w-full justify-center pt-2">
+<button class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-blue-500/30 transition transform hover:scale-105 flex items-center gap-2 w-full max-w-xs justify-center">
+<span class="material-icons-round">search</span>
+                                PILIH LAGU
+                            </button>
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 p-0.5 shadow-lg shadow-purple-500/30 cursor-pointer hover:scale-110 transition">
+<div class="w-full h-full rounded-full bg-black/40 flex items-center justify-center backdrop-blur-sm">
+<span class="material-icons-round text-white text-2xl">music_note</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-4 px-2 lg:px-0">
+<div class="flex flex-col items-center space-y-1">
+<div class="relative w-16 h-16 lg:w-20 lg:h-20 rounded-full border-2 border-yellow-400 p-0.5 speaking-ring">
+<img alt="User 1" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOpWUf2W-hsW59WNit2yZ5M03q_puGBuKcHgYUP8swSckZ3pu36qsZ2j6o2MPxa9tXXJtb_mMQOHQzjzkPib_MtXyEvW_UbKRHXFB5JUPFBMLY_ATaSnixqKeFRCSszZHS6vlOVsX2KtuIEgrUIDlKSZJ5OjV9nHVQ6RD8OMyoNs335R-N0-zWMDPZgWq_ZBZ7gHOGNC_-QDmZgKjtYSAkRZSYceLYS0nV7jrXR_qxBP8OJoAYGqvotZ9fREkS2J1J-KK_QmK_3Es"/>
+<div class="absolute -bottom-1 -right-1 bg-yellow-400 rounded-full p-0.5">
+<span class="material-icons-round text-black text-[10px]">mic</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] bg-yellow-500 text-black px-1 rounded font-bold">1</span>
+<span class="text-xs text-white truncate max-w-[60px]">xprblm</span>
+</div>
+</div>
+<div class="flex flex-col items-center space-y-1 opacity-60 hover:opacity-100 transition cursor-pointer">
+<div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-icons-round text-white text-2xl">add</span>
+</div>
+<span class="text-xs text-indigo-200">No 2</span>
+</div>
+<div class="flex flex-col items-center space-y-1 opacity-60 hover:opacity-100 transition cursor-pointer">
+<div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-icons-round text-white text-2xl">add</span>
+</div>
+<span class="text-xs text-indigo-200">No 3</span>
+</div>
+<div class="flex flex-col items-center space-y-1 opacity-60 hover:opacity-100 transition cursor-pointer">
+<div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-icons-round text-white text-2xl">add</span>
+</div>
+<span class="text-xs text-indigo-200">No 4</span>
+</div>
+<div class="flex flex-col items-center space-y-1">
+<div class="relative w-16 h-16 lg:w-20 lg:h-20 rounded-full border-2 border-transparent hover:border-white/50 transition p-0.5">
+<img alt="User 5" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFn2vqtju9ZM6hxdd3ZyclBDtXXLVYLRiAs7I4D8RWInnkkisWP038IwEqXsYzizC4qOzwsA-dghoko77LQjK5T66BHgpX3a6uoGB2jANQHdK25m5eo9Bm-ogIcNrsZ42PcfW2-SkDBl92-ciFL8cQl-Cf6V22v2IC3Vcm7VAmzBBvYaXgYYOwqhDnnt2dx1gOr5mrWrXOcNew876FR4I8InSF1Btg4IO0qA398jBoc_xuO-DKvO7MYga4sQlijQerflgPhdIxR54"/>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] bg-indigo-500 text-white px-1 rounded font-bold">5</span>
+<span class="text-xs text-white truncate max-w-[60px]">AL...</span>
+</div>
+</div>
+<div class="flex flex-col items-center space-y-1 opacity-60 hover:opacity-100 transition cursor-pointer">
+<div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-icons-round text-white text-2xl">add</span>
+</div>
+<span class="text-xs text-indigo-200">No 6</span>
+</div>
+<div class="flex flex-col items-center space-y-1 opacity-60 hover:opacity-100 transition cursor-pointer">
+<div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-icons-round text-white text-2xl">add</span>
+</div>
+<span class="text-xs text-indigo-200">No 7</span>
+</div>
+<div class="flex flex-col items-center space-y-1 opacity-60 hover:opacity-100 transition cursor-pointer">
+<div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-icons-round text-white text-2xl">add</span>
+</div>
+<span class="text-xs text-indigo-200">No 8</span>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col min-h-0 lg:bg-black/20 lg:rounded-2xl lg:border lg:border-white/5 relative">
+<div class="absolute right-0 top-10 z-20 flex flex-col gap-2 p-2 pointer-events-none">
+</div>
+<div class="flex-1 overflow-y-auto scrollbar-hide p-4 space-y-3 mask-image-b relative">
+<div class="flex flex-col gap-2.5">
+<div class="flex items-start gap-2 mt-2">
+<img alt="avatar" class="w-8 h-8 rounded-full border border-white/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_kT5lEV5XzWizjI_FSR9J-nx9G8mu95n6yh1yBO6i4v6lFwEN14pY7my2Sa7WvdLvP4J2P1Vgi9u0vkJmjTQQJPERmkX1oXIMdgDye63ajPF0KArvoW0Ai_GijQ-2ePVSweL2nRQicmNll6Qj5vrZsWC6CA31vuoOeBVqQ06bbiY9CjhrEuuOWeTBri7uIUXhkSBlWYxQX2gX3ZilGGT1DklqiByf-pvA-A111lnbnULYse0xjF9xmCEf5Y_MChw32I7AwWobQdY"/>
+<div class="flex flex-col">
+<span class="text-xs text-gray-400">Azrim00</span>
+<div class="bg-white/10 text-white px-3 py-1.5 rounded-2xl rounded-tl-none text-sm">
+                                     Can I sing next? 🎤
+                                 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="hidden lg:flex items-center gap-2 p-3 border-t border-white/10 bg-black/20">
+<input class="bg-transparent border-none text-white placeholder-white/40 flex-1 focus:ring-0" placeholder="Say something..." type="text"/>
+<button class="bg-blue-600 hover:bg-blue-500 p-2 rounded-full text-white">
+<span class="material-icons-round text-sm">send</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
