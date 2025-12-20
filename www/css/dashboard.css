@@ -173,7 +173,7 @@ body {
 }
 
 .search-box input {
-  width: 100%;
+  width: 95%;
   padding: 12px 16px 12px 48px;
   border-radius: 25px;
   border: none;
@@ -191,7 +191,7 @@ body {
 
 .top-actions {
   display: flex;
-  gap: 12px;
+  gap: 8px;
 }
 
 .icon-btn {
@@ -225,6 +225,14 @@ body {
   gap: 12px;
   padding: 10px 0 30px 0;
   overflow-x: auto;
+
+  /* Tambahkan ini untuk menyembunyikan scrollbar di Firefox dan IE */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+/* Tambahkan selector ini untuk menyembunyikan scrollbar di Chrome, Safari, dan Opera */
+.categories::-webkit-scrollbar {
+  display: none;
 }
 
 .categories button {
