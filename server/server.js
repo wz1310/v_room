@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -10,9 +11,11 @@ const server = http.createServer(app);
 // Tambahkan di bagian atas bersama path lainnya
 const chatFilePath = path.join(__dirname, "data", "chat_room.json");
 
-// Credentials Twilio dari contohmu
-const TWILIO_SID = "";
-const TWILIO_AUTH = "";
+// --- KONFIGURASI DARI .ENV ---
+// Mengambil data dari file .env Anda
+const TWILIO_SID = process.env.TWILIO_SID;
+const TWILIO_AUTH = process.env.TWILIO_AUTH;
+const PORT = process.env.PORT || 3000; // Menggunakan 3000 jika PORT tidak didefinisikan
 const twilioClient = twilio(TWILIO_SID, TWILIO_AUTH);
 
 app.use(cors());

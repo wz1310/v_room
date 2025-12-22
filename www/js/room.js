@@ -10,9 +10,10 @@ const roomId = params.get("id");
 let isHost = false;
 const userData = JSON.parse(localStorage.getItem("user"));
 let currentSlotIndex = null; // Melacak slot mana yang sedang ditempati user ini
+const BASE_URL = "https://m3h048qq-3000.asse.devtunnels.ms";
 
 // 1. Inisialisasi awal di luar agar bisa diakses fungsi lain
-const socket = io("https://c1jx4415-3000.asse.devtunnels.ms", {
+const socket = io(`${BASE_URL}`, {
   transports: ["polling", "websocket"],
 });
 socket.on("connect", () => {
@@ -146,7 +147,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   idElement.innerText = `#${roomId}`;
 
   // 2. Ambil data room dari server
-  fetch(`https://c1jx4415-3000.asse.devtunnels.ms/api/rooms`)
+  fetch(`${BASE_URL}/api/rooms`)
     .then((res) => res.json())
     .then((rooms) => {
       const currentRoom = rooms.find((r) => r.id == roomId);
@@ -173,7 +174,7 @@ async function connectToTwilio() {
     console.log("--- Mencoba menghubungkan ke Twilio TURN Server... ---");
 
     const response = await fetch(
-      "https://c1jx4415-3000.asse.devtunnels.ms/turn-token"
+      `${BASE_URL}/turn-token`
     );
 
     if (!response.ok) {
@@ -194,7 +195,7 @@ async function connectToTwilio() {
 }
 
 async function fetchRoomDetail() {
-  const res = await fetch("https://c1jx4415-3000.asse.devtunnels.ms/api/rooms");
+  const res = await fetch(`${BASE_URL}/api/rooms`);
   const rooms = await res.json();
   const room = rooms.find((r) => r.id == roomId);
 

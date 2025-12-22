@@ -1,6 +1,7 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+  const BASE_URL = "https://m3h048qq-3000.asse.devtunnels.ms";
   const loginForm = document.getElementById("loginForm");
   const passwordInput = loginForm.querySelector('input[type="password"]');
 
@@ -33,7 +34,7 @@ function onDeviceReady() {
     const username = loginForm.querySelector('input[type="text"]').value;
     const password = passwordInput.value;
 
-    const SERVER_URL = "https://c1jx4415-3000.asse.devtunnels.ms/api/login";
+    const SERVER_URL = `${BASE_URL}/api/login`;
 
     fetch(SERVER_URL, {
       method: "POST",
