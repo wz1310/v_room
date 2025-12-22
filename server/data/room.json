@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "title": "f",
+    "category": "Musik",
+    "host": "admin2",
+    "id": 1,
+    "listeners": "0"
+  },
+  {
+    "title": "f",
+    "category": "Musik",
+    "host": "admin2",
+    "id": 2,
+    "listeners": "0"
+  }
+]

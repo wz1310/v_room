@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       // 1. Ambil data dari input
+      const roomTitle = document.getElementById("roomTitle").value;
+      const roomCategory = document.getElementById("roomCategory").value;
+
+      // 1. Ambil data dari input
       const roomData = {
         title: document.getElementById("roomTitle").value,
         category: document.getElementById("roomCategory").value,
@@ -64,7 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
             addRoomForm.reset(); // Reset input form
             loadRooms(); // Panggil fungsi refresh list room
             const newRoomId = result.room.id;
-            window.location.href = `room.html?id=${newRoomId}`;
+            // --- VALIDASI REDIRECT BERDASARKAN KATEGORI ---
+            if (roomCategory === "Musik") {
+              console.log("MUSIKKKKKKKK");
+              // Jika kategori Musik, arahkan ke karaoke.html
+              window.location.href = `karaoke.html?id=${newRoomId}`;
+            } else {
+              console.log("OBROLANNN");
+              // Selain itu (Edukasi/Obrolan), arahkan ke room.html
+              window.location.href = `room.html?id=${newRoomId}`;
+            }
           }
         })
         .catch((error) => {
@@ -74,30 +87,45 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // dashboard.js - Update bagian loadRooms()
+
   function loadRooms() {
     fetch(`${BASE_URL}/api/rooms`)
       .then((res) => res.json())
       .then((rooms) => {
         const roomGrid = document.querySelector(".room-grid");
-        roomGrid.innerHTML = ""; // Kosongkan list lama
+        roomGrid.innerHTML = "";
 
         rooms.forEach((room) => {
+          // Tambahkan data-category ke element HTML agar mudah diambil
           roomGrid.innerHTML += `
-    <div class="room-card" data-room-id="${room.id}">
-      <div class="room-thumb"></div>
-      <div class="room-details">
-        <h3>${room.title}</h3>
-        <div class="room-info">
-          <span>${room.host}</span>
-          <span class="listeners">🎧 ${room.listeners || 0}</span>
-        </div>
-      </div>
-    </div>`;
+          <div class="room-card" data-room-id="${room.id}" data-category="${
+            room.category
+          }">
+            <div class="room-thumb"></div>
+            <div class="room-details">
+              <h3>${room.title}</h3>
+              <div class="room-info">
+                <span>${room.host}</span>
+                <span class="listeners">🎧 ${room.listeners || 0}</span>
+              </div>
+            </div>
+          </div>`;
         });
+
+        // --- LOGIKA PEMILIHAN HALAMAN ---
         document.querySelectorAll(".room-card").forEach((card) => {
           card.addEventListener("click", () => {
             const roomId = card.getAttribute("data-room-id");
-            window.location.href = `room.html?id=${roomId}`;
+            const category = card.getAttribute("data-category");
+
+            if (category === "Musik") {
+              // Jika kategori Musik, arahkan ke karaoke.html
+              window.location.href = `karaoke.html?id=${roomId}`;
+            } else {
+              // Selain itu (Edukasi/Obrolan), arahkan ke room.html
+              window.location.href = `room.html?id=${roomId}`;
+            }
           });
         });
       })
