@@ -10,7 +10,7 @@ const roomId = params.get("id");
 let isHost = false;
 const userData = JSON.parse(localStorage.getItem("user"));
 let currentSlotIndex = null; // Melacak slot mana yang sedang ditempati user ini
-const BASE_URL = "https://m3h048qq-3000.asse.devtunnels.ms";
+const BASE_URL = "https://c1jx4415-3000.asse.devtunnels.ms";
 
 // 1. Inisialisasi awal di luar agar bisa diakses fungsi lain
 const socket = io(`${BASE_URL}`, {

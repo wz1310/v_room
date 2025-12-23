@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Modern Song List - Karaoke Pro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/song.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <main class="main-content">
+        <div class="content-scroll">
+          <div class="container">
+            <div class="header-section">
+              <div class="heading-group">
+                <h2 class="page-title">Song Library</h2>
+              </div>
+              <div class="search-container">
+                <div class="search-wrapper">
+                  <span class="material-symbols-outlined search-icon"
+                    >search</span
+                  >
+                  <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search by title, artist, or lyrics..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="filter-bar">
+              <button class="filter-chip active">All</button>
+              <button class="filter-chip">Pop</button>
+              <button class="filter-chip">Rock</button>
+              <button class="filter-chip">R&B</button>
+              <button class="filter-chip">Duets</button>
+              <button class="filter-chip">90s Hits</button>
+              <button class="filter-chip">Classics</button>
+            </div>
+
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="song-table">
+                  <thead>
+                    <tr>
+                      <th class="col-no">#</th>
+                      <th class="col-title">Title</th>
+                      <th class="col-artist hide-mobile">Artist</th>
+                      <th class="col-duration hide-mobile">Duration</th>
+                      <th class="col-action">Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td class="col-no">1</td>
+
+                      <td class="col-title">
+                        <div class="title-wrap">
+                          <span class="title">Bohemian Rhapsody</span>
+                          <span class="artist-mobile">Queen</span>
+                        </div>
+                      </td>
+
+                      <td class="col-artist hide-mobile">Queen</td>
+                      <td class="col-duration hide-mobile">5:55</td>
+
+                      <td class="col-action">
+                        <button class="action-btn">
+                          <span class="material-symbols-outlined">add</span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
