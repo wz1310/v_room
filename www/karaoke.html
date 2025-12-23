@@ -1,108 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Karaoke Room Web Interface</title>
     <link rel="stylesheet" href="css/karaoke.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
-</head>
-<body class="dark-theme">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="dark-theme">
     <div class="main-container">
-        <div class="stardust-overlay"></div>
+      <div class="stardust-overlay"></div>
 
-        <header class="app-header">
-            <div class="header-left">
-                <button class="icon-btn">
-                    <span class="material-icons-round">arrow_back</span>
-                </button>
-                <div class="room-info">
-                    <div class="room-title">
-                        <h1>---/N//</h1>
-                        <span class="member-count">4</span>
-                    </div>
-                    <span class="room-id">ID: 882910</span>
-                </div>
+      <header class="app-header">
+        <div class="header-left">
+          <button class="icon-btn" id="back_btn">
+            <span class="material-icons-round">arrow_back</span>
+          </button>
+          <div class="room-info">
+            <div class="room-title">
+              <h1>---/N//</h1>
+              <span class="member-count">4</span>
             </div>
-        </header>
+            <span class="room-id">ID: 882910</span>
+          </div>
+        </div>
+      </header>
 
-        <main class="content-layout">
-            <section class="stage-section">
-                <div class="player-card">
-                    <div class="grid-pattern"></div>
-                    <button class="close-btn">
-                        <span class="material-icons-round">close</span>
-                    </button>
-                    <div class="player-content">
-                        <h2>Tidak Ada Lagu</h2>
-                        <p>Gunakan earphone untuk menghindari gema</p>
-                        <div class="player-controls">
-                            <button class="btn-primary">
-                                <span class="material-icons-round">search</span>
-                                PILIH LAGU
-                            </button>
-                            <div class="music-icon-circle">
-                                <span class="material-icons-round">music_note</span>
-                            </div>
-                        </div>
-                    </div>
+      <main class="content-layout">
+        <section class="stage-section">
+          <div class="player-card">
+            <div class="grid-pattern"></div>
+            <button class="close-btn">
+              <span class="material-icons-round">close</span>
+            </button>
+            <div class="player-content">
+              <h2>Tidak Ada Lagu</h2>
+              <p>Gunakan earphone untuk menghindari gema</p>
+              <div class="player-controls">
+                <button class="btn-primary">
+                  <span class="material-icons-round">search</span>
+                  PILIH LAGU
+                </button>
+                <div class="music-icon-circle">
+                  <span class="material-icons-round">music_note</span>
                 </div>
+              </div>
+            </div>
+          </div>
 
-                <div class="user-grid">
-                    <div class="user-slot">
-                        <div class="avatar-wrapper speaking-ring">
-                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOpWUf2W-hsW59WNit2yZ5M03q_puGBuKcHgYUP8swSckZ3pu36qsZ2j6o2MPxa9tXXJtb_mMQOHQzjzkPib_MtXyEvW_UbKRHXFB5JUPFBMLY_ATaSnixqKeFRCSszZHS6vlOVsX2KtuIEgrUIDlKSZJ5OjV9nHVQ6RD8OMyoNs335R-N0-zWMDPZgWq_ZBZ7gHOGNC_-QDmZgKjtYSAkRZSYceLYS0nV7jrXR_qxBP8OJoAYGqvotZ9fREkS2J1J-KK_QmK_3Es" alt="User 1">
-                            <div class="mic-badge">
-                                <span class="material-icons-round">mic</span>
-                            </div>
-                        </div>
-                        <div class="user-label">
-                            <span class="rank-badge gold">1</span>
-                            <span class="username">xprblm</span>
-                        </div>
-                    </div>
+          <div class="user-grid">
+            <div class="user-slot">
+              <div class="avatar-wrapper speaking-ring">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOpWUf2W-hsW59WNit2yZ5M03q_puGBuKcHgYUP8swSckZ3pu36qsZ2j6o2MPxa9tXXJtb_mMQOHQzjzkPib_MtXyEvW_UbKRHXFB5JUPFBMLY_ATaSnixqKeFRCSszZHS6vlOVsX2KtuIEgrUIDlKSZJ5OjV9nHVQ6RD8OMyoNs335R-N0-zWMDPZgWq_ZBZ7gHOGNC_-QDmZgKjtYSAkRZSYceLYS0nV7jrXR_qxBP8OJoAYGqvotZ9fREkS2J1J-KK_QmK_3Es"
+                  alt="User 1"
+                />
+                <div class="mic-badge">
+                  <span class="material-icons-round">mic</span>
+                </div>
+              </div>
+              <div class="user-label">
+                <span class="rank-badge gold">1</span>
+                <span class="username">xprblm</span>
+              </div>
+            </div>
 
-                    <div class="user-slot empty">
-                        <div class="avatar-placeholder">
-                            <span class="material-icons-round">add</span>
-                        </div>
-                        <span class="slot-text">No 2</span>
-                    </div>
-                    <div class="user-slot empty"><div class="avatar-placeholder"><span class="material-icons-round">add</span></div><span class="slot-text">No 3</span></div>
-                    <div class="user-slot empty"><div class="avatar-placeholder"><span class="material-icons-round">add</span></div><span class="slot-text">No 4</span></div>
-                    
-                    <div class="user-slot">
-                        <div class="avatar-wrapper">
-                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFn2vqtju9ZM6hxdd3ZyclBDtXXLVYLRiAs7I4D8RWInnkkisWP038IwEqXsYzizC4qOzwsA-dghoko77LQjK5T66BHgpX3a6uoGB2jANQHdK25m5eo9Bm-ogIcNrsZ42PcfW2-SkDBl92-ciFL8cQl-Cf6V22v2IC3Vcm7VAmzBBvYaXgYYOwqhDnnt2dx1gOr5mrWrXOcNew876FR4I8InSF1Btg4IO0qA398jBoc_xuO-DKvO7MYga4sQlijQerflgPhdIxR54" alt="User 5">
-                        </div>
-                        <div class="user-label">
-                            <span class="rank-badge purple">5</span>
-                            <span class="username">AL...</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <div class="user-slot empty">
+              <div class="avatar-placeholder">
+                <span class="material-icons-round">add</span>
+              </div>
+              <span class="slot-text">No 2</span>
+            </div>
+            <div class="user-slot empty">
+              <div class="avatar-placeholder">
+                <span class="material-icons-round">add</span>
+              </div>
+              <span class="slot-text">No 3</span>
+            </div>
+            <div class="user-slot empty">
+              <div class="avatar-placeholder">
+                <span class="material-icons-round">add</span>
+              </div>
+              <span class="slot-text">No 4</span>
+            </div>
 
-            <section class="chat-section">
-                <div class="chat-messages">
-                    <div class="message-item">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_kT5lEV5XzWizjI_FSR9J-nx9G8mu95n6yh1yBO6i4v6lFwEN14pY7my2Sa7WvdLvP4J2P1Vgi9u0vkJmjTQQJPERmkX1oXIMdgDye63ajPF0KArvoW0Ai_GijQ-2ePVSweL2nRQicmNll6Qj5vrZsWC6CA31vuoOeBVqQ06bbiY9CjhrEuuOWeTBri7uIUXhkSBlWYxQX2gX3ZilGGT1DklqiByf-pvA-A111lnbnULYse0xjF9xmCEf5Y_MChw32I7AwWobQdY" class="chat-avatar" alt="Azrim00">
-                        <div class="message-content">
-                            <span class="chat-user">Azrim00</span>
-                            <div class="bubble">Can I sing next? 🎤</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="chat-input-area">
-                    <input type="text" placeholder="Say something...">
-                    <button class="send-btn">
-                        <span class="material-icons-round">send</span>
-                    </button>
-                </div>
-            </section>
-        </main>
+            <div class="user-slot">
+              <div class="avatar-wrapper">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFn2vqtju9ZM6hxdd3ZyclBDtXXLVYLRiAs7I4D8RWInnkkisWP038IwEqXsYzizC4qOzwsA-dghoko77LQjK5T66BHgpX3a6uoGB2jANQHdK25m5eo9Bm-ogIcNrsZ42PcfW2-SkDBl92-ciFL8cQl-Cf6V22v2IC3Vcm7VAmzBBvYaXgYYOwqhDnnt2dx1gOr5mrWrXOcNew876FR4I8InSF1Btg4IO0qA398jBoc_xuO-DKvO7MYga4sQlijQerflgPhdIxR54"
+                  alt="User 5"
+                />
+              </div>
+              <div class="user-label">
+                <span class="rank-badge purple">5</span>
+                <span class="username">AL...</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="chat-section">
+          <div class="chat-messages">
+            <div class="message-item">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_kT5lEV5XzWizjI_FSR9J-nx9G8mu95n6yh1yBO6i4v6lFwEN14pY7my2Sa7WvdLvP4J2P1Vgi9u0vkJmjTQQJPERmkX1oXIMdgDye63ajPF0KArvoW0Ai_GijQ-2ePVSweL2nRQicmNll6Qj5vrZsWC6CA31vuoOeBVqQ06bbiY9CjhrEuuOWeTBri7uIUXhkSBlWYxQX2gX3ZilGGT1DklqiByf-pvA-A111lnbnULYse0xjF9xmCEf5Y_MChw32I7AwWobQdY"
+                class="chat-avatar"
+                alt="Azrim00"
+              />
+              <div class="message-content">
+                <span class="chat-user">Azrim00</span>
+                <div class="bubble">Can I sing next? 🎤</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <input type="text" placeholder="Say something..." />
+            <button class="send-btn">
+              <span class="material-icons-round">send</span>
+            </button>
+          </div>
+        </section>
+      </main>
     </div>
-</body>
+    <script src="js/karaoke.js"></script>
+  </body>
 </html>
