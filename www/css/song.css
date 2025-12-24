@@ -56,10 +56,16 @@ body {
 /* Header & Search */
 .header-section {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
 }
-
+.heading-group {
+  flex-grow: 1; /* Agar judul tetap mengambil ruang yang ada */
+}
+.icon-btn:hover {
+  opacity: 0.7;
+  transition: 0.2s;
+}
 @media (min-width: 768px) {
   .header-section {
     flex-direction: row;
@@ -282,5 +288,12 @@ body {
   .song-table {
     min-width: 100%;
     table-layout: auto;
+  }
+}
+@media (max-width: 480px) {
+  .header-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
   }
 }

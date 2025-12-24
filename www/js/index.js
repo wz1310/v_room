@@ -1,7 +1,7 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-  const BASE_URL = "https://c1jx4415-3000.asse.devtunnels.ms";
+  const BASE_URL = "https://m3h048qq-3000.asse.devtunnels.ms";
   const loginForm = document.getElementById("loginForm");
   const passwordInput = loginForm.querySelector('input[type="password"]');
 

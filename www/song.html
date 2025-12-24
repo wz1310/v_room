@@ -24,20 +24,40 @@
         <div class="content-scroll">
           <div class="container">
             <div class="header-section">
+              <button
+                class="icon-btn"
+                id="back_btn"
+                onclick="history.back()"
+                style="
+                  margin-right: 15px;
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                "
+              >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-size: 28px; color: #ffffff"
+                  >arrow_back</span
+                >
+              </button>
               <div class="heading-group">
-                <h2 class="page-title">Song Library</h2>
+                <p class="page-title">Song Library</p>
               </div>
-              <div class="search-container">
-                <div class="search-wrapper">
-                  <span class="material-symbols-outlined search-icon"
-                    >search</span
-                  >
-                  <input
-                    type="text"
-                    class="search-input"
-                    placeholder="Search by title, artist, or lyrics..."
-                  />
-                </div>
+            </div>
+
+            <div class="search-container">
+              <div class="search-wrapper">
+                <span class="material-symbols-outlined search-icon"
+                  >search</span
+                >
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="Search by title, artist, or lyrics..."
+                />
               </div>
             </div>
 
