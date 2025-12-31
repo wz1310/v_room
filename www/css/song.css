@@ -296,4 +296,7 @@ body {
     align-items: center;
     margin-bottom: 5px;
   }
+  .action-btn {
+    cursor: pointer;
+  }
 }
