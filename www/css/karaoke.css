@@ -420,3 +420,35 @@ body {
 .close-btn span {
   font-size: 20px;
 }
+
+.play-button-circle {
+  transition: transform 0.2s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.play-button-circle:hover {
+  transform: scale(1.1);
+}
+
+#current_song_title {
+  font-family: "Nunito", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.player-card {
+  position: relative; /* Penting untuk tombol close */
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}

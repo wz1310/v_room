@@ -18,7 +18,13 @@ const TWILIO_AUTH = process.env.TWILIO_AUTH;
 const PORT = process.env.PORT || 3000; // Menggunakan 3000 jika PORT tidak didefinisikan
 const twilioClient = twilio(TWILIO_SID, TWILIO_AUTH);
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "OPTIONS"], // Tambahkan DELETE dan OPTIONS
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 
 app.post("/api/login", (req, res) => {
@@ -80,7 +86,7 @@ const io = new Server(server, {
   path: "/socket.io/",
   cors: {
     origin: "*",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE", "OPTIONS"],
     credentials: true,
   },
   allowEIO3: true,
@@ -357,6 +363,67 @@ function cleanChatHistory(roomId) {
     }
   });
 }
+// 2. Endpoint untuk menyimpan lagu yang dipilih
+app.post("/api/choose-song", (req, res) => {
+  const { roomId, title, artist } = req.body;
+  const filePath = path.join(__dirname, "data", "karaokelist.json");
+
+  fs.readFile(filePath, "utf8", (err, data) => {
+    let list = [];
+    if (!err && data) {
+      list = JSON.parse(data);
+    }
+
+    // Simpan lagu (update jika roomId sudah ada, atau push baru)
+    const index = list.findIndex((item) => item.roomId === roomId);
+    const newData = { roomId, title, artist, timestamp: Date.now() };
+
+    if (index !== -1) {
+      list[index] = newData;
+    } else {
+      list.push(newData);
+    }
+
+    fs.writeFile(filePath, JSON.stringify(list, null, 2), (err) => {
+      if (err) return res.status(500).json({ error: "Gagal menyimpan" });
+
+      // Beritahu client lewat socket agar halaman karaoke berubah otomatis
+      io.to(roomId).emit("song_selected", newData);
+      res.json({ success: true });
+    });
+  });
+});
+
+// Endpoint untuk mengambil semua daftar lagu aktif
+app.get("/api/karaoke-list", (req, res) => {
+  const filePath = path.join(__dirname, "data", "karaokelist.json");
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) return res.json([]);
+    res.json(JSON.parse(data || "[]"));
+  });
+});
+
+// server.js - Tambahkan endpoint DELETE lagu
+app.delete("/api/choose-song/:roomId", (req, res) => {
+  const { roomId } = req.params;
+  const filePath = path.join(__dirname, "data", "karaokelist.json");
+
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) return res.status(500).json({ error: "Gagal membaca data" });
+
+    let list = JSON.parse(data || "[]");
+    // Filter untuk membuang lagu yang roomId-nya cocok
+    const filteredList = list.filter((item) => item.roomId != roomId);
+
+    fs.writeFile(filePath, JSON.stringify(filteredList, null, 2), (err) => {
+      if (err) return res.status(500).json({ error: "Gagal menghapus" });
+
+      // Kirim signal ke socket agar UI semua orang di room tersebut kembali ke awal
+      io.to(roomId).emit("song_removed");
+      res.json({ success: true, message: "Lagu berhasil dihapus" });
+    });
+  });
+});
 
 server.listen(3000, () => {
   console.log("🚀 Server + Socket.IO berjalan di port 3000");
